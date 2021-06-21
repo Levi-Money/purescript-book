@@ -3,7 +3,7 @@ module Test.MySolutions where
 import Prelude
 
 import Data.AddressBook (AddressBook, Entry, findEntry)
-import Data.Maybe (Maybe)
+import Data.Maybe (Maybe, isNothing)
 
 -- Note to reader: Add your solutions to this file
 
@@ -19,3 +19,5 @@ findEntryByStreet street = findEntry filter
   filter :: Entry -> Boolean
   filter = eq street <<< _.address.street
 
+isInBook :: String -> String -> AddressBook -> Boolean
+isInBook firstName lastName book = not isNothing $ findEntryByName firstName lastName book
