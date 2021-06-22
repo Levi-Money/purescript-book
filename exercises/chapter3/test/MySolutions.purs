@@ -12,7 +12,7 @@ findEntryByName :: String -> String -> AddressBook -> Maybe Entry
 findEntryByName firstName lastName = findEntry filter
   where
   filter :: Entry -> Boolean
-  filter entry = entry.firstName == firstName && entry.lastName == lastName
+  filter = eq lastName <<< _.lastName && eq firstName <<< _.firstName
 
 findEntryByStreet :: String -> AddressBook -> Maybe Entry
 findEntryByStreet street = findEntry filter
@@ -21,7 +21,7 @@ findEntryByStreet street = findEntry filter
   filter = eq street <<< _.address.street
 
 isInBook :: String -> String -> AddressBook -> Boolean
-isInBook firstName lastName book = not isNothing $ findEntryByName firstName lastName book
+isInBook firstName lastName = not isNothing <<< findEntryByName firstName lastName
 
 removeDuplicates :: AddressBook -> AddressBook
 removeDuplicates book = nubByEq comparator book
