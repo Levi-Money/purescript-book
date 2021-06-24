@@ -1,5 +1,9 @@
 module Test.MySolutions where
 
 import Prelude
+import Data.Ord (abs)
 
--- Note to reader: Add your solutions to this file
+isEven :: Int -> Boolean
+isEven n = if n == 0 
+ then true
+ else not $ isEven $ (abs n) - 1
