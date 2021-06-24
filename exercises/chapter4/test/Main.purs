@@ -2,7 +2,7 @@ module Test.Main where
 
 import Prelude
 import Test.Examples
-import Test.MySolutions (isEven)
+import Test.MySolutions (isEven, countEven)
 import Data.Array (sort)
 import Data.Foldable (sequence_)
 import Data.Maybe (Maybe(..))
@@ -41,7 +41,6 @@ main =
         test "-19 is odd" do
           Assert.equal false
             $ isEven (-19)
-    {-  Move this block comment starting point to enable more tests
       suite "Exercise - countEven" do
         test "[] has none" do
           Assert.equal 0
@@ -55,6 +54,7 @@ main =
         test "[0, 1, 19, 20] has 2" do
           Assert.equal 2
             $ countEven [ 0, 1, 19, 20 ]
+    {-  Move this block comment starting point to enable more tests
     suite "Exercise Group - Maps, Infix Operators, and Filtering" do
       suite "Exercise - squared" do
         test "Do nothing with empty array" do
