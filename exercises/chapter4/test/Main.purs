@@ -2,13 +2,14 @@ module Test.Main where
 
 import Prelude
 import Test.Examples
-import Test.MySolutions (isEven, countEven, squared, keepNonNegative, (<$?>))
+
 import Data.Array (sort)
 import Data.Foldable (sequence_)
 import Data.Maybe (Maybe(..))
 import Data.Path (Path(..), filename, root)
 import Data.Tuple.Nested ((/\))
 import Effect (Effect)
+import Test.MySolutions (isEven, countEven, squared, keepNonNegative, keepNonNegativeRewrite, (<$?>))
 import Test.Unit (TestSuite, suite, test)
 import Test.Unit.Assert (assert, assertFalse)
 import Test.Unit.Assert as Assert
@@ -74,10 +75,10 @@ main =
           Assert.equal [ 1, 1 ]
             $ (_ == 1)
             <$?> [ 1, 2, 3, 1, 2, 3 ]
-    {-  Move this block comment starting point to enable more tests
         test "keepNonNegativeRewrite " do
           Assert.equal [ 0.0, 2.0, 3.0 ]
             $ keepNonNegativeRewrite [ -1.5, -1.0, 0.0, -0.1, 2.0, 3.0, -4.0 ]
+    {-  Move this block comment starting point to enable more tests
     suite "Exercise Group - Flattening, Comprehensions, Do Notation, and Guards" do
       test "Exercise - isPrime" do
         assertFalse "0 is not prime"
