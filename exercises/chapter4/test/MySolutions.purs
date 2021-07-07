@@ -2,7 +2,7 @@ module Test.MySolutions where
 
 import Prelude
 
-import Data.Array (null, head, tail, filter)
+import Data.Array (filter, head, null, tail)
 import Data.Maybe (fromMaybe)
 import Data.Ord (abs)
 
@@ -24,3 +24,5 @@ squared arr = pow <$> arr where
 
 keepNonNegative :: Array Number -> Array Number
 keepNonNegative arr = filter (_ >= 0.0) arr
+
+infix 9 filter as <$?>  
