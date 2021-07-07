@@ -16,3 +16,8 @@ countEven arr = if null arr then 0 else evenInc (fromMaybe (-1) (head arr)) $ co
     where
         evenInc :: Int -> Int -> Int
         evenInc n = if isEven n then (+) 1 else (+) 0
+
+squared :: Array Number -> Array Number
+squared arr = pow <$> arr where
+  pow :: Number -> Number
+  pow n = n * n
