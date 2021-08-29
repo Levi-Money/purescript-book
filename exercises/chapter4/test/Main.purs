@@ -9,7 +9,7 @@ import Data.Maybe (Maybe(..))
 import Data.Path (Path(..), filename, root)
 import Data.Tuple.Nested ((/\))
 import Effect (Effect)
-import Test.MySolutions (isEven, countEven, squared, keepNonNegative, keepNonNegativeRewrite, (<$?>), isPrime)
+import Test.MySolutions (isEven, countEven, squared, keepNonNegative, keepNonNegativeRewrite, (<$?>), isPrime, cartesianProduct)
 import Test.Unit (TestSuite, suite, test)
 import Test.Unit.Assert (assert, assertFalse)
 import Test.Unit.Assert as Assert
@@ -90,7 +90,6 @@ main =
           $ isPrime 4
         assert "997 is prime"
           $ isPrime 997
-    {-  Move this block comment starting point to enable more tests
       suite "Exercise - cartesianProduct" do
         let
           -- Don't worry if this this testing helper function signature looks confusing.
@@ -112,6 +111,7 @@ main =
           [ [ "5", "five" ], [ "5", "six" ], [ "6", "five" ], [ "6", "six" ] ]
           [ "5", "6" ]
           [ "five", "six" ]
+    {-  Move this block comment starting point to enable more tests
       suite "Exercise - triples" do
         -- Sorting to allow for any ordering
         test "single element array result" do

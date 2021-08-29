@@ -42,3 +42,10 @@ isPrime :: Int -> Boolean
 isPrime n = eq 1 $ length $ do
   guard $ n > 1
   factors n
+
+cartesianProduct :: forall a. Array a -> Array a -> Array (Array a)
+cartesianProduct arrA arrB = do
+  guard $ length arrA > 0
+  arrAValue <- arrA
+  arrBValue <- arrB
+  pure [ arrAValue, arrBValue ]
