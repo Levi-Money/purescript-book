@@ -2,9 +2,10 @@ module Test.MySolutions where
 
 import Prelude
 
-import Data.Array (filter, head, null, tail)
+import Data.Array (filter, head, null, tail, (..), length)
 import Data.Maybe (fromMaybe)
 import Data.Ord (abs)
+import Control.Alternative (guard)
 
 isEven :: Int -> Boolean
 isEven n = if n == 0 
@@ -29,3 +30,15 @@ infix 9 filter as <$?>
 
 keepNonNegativeRewrite :: Array Number -> Array Number
 keepNonNegativeRewrite arr = (_ >= 0.0) <$?> arr
+
+factors :: Int -> Array (Array Int)
+factors n = do
+  i <- 1 .. n
+  j <- i .. n
+  guard $ i * j == n
+  pure [ i, j ]
+
+isPrime :: Int -> Boolean
+isPrime n = eq 1 $ length $ do
+  guard $ n > 1
+  factors n
