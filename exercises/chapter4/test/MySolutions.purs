@@ -5,7 +5,6 @@ import Prelude
 import Data.Array (filter, head, null, tail, (..), length)
 import Data.Maybe (fromMaybe)
 import Data.Ord (abs)
-import Data.Int (pow)
 import Control.Alternative (guard)
 
 isEven :: Int -> Boolean
