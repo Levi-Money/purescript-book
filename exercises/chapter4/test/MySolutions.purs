@@ -5,6 +5,7 @@ import Prelude
 import Data.Array (filter, head, null, tail, (..), length)
 import Data.Maybe (fromMaybe)
 import Data.Ord (abs)
+import Data.Int (pow)
 import Control.Alternative (guard)
 
 isEven :: Int -> Boolean
@@ -49,3 +50,14 @@ cartesianProduct arrA arrB = do
   arrAValue <- arrA
   arrBValue <- arrB
   pure [ arrAValue, arrBValue ]
+
+triples :: Int -> Array (Array Int)
+triples n = do
+  a <- 1 .. n
+  b <- 1 .. n
+  c <- 1 .. n
+  -- remove sort-insensitively dups by
+  -- keeping only consecutive values
+  guard $ (a < b) && (b < c)
+  guard $ a * a + b * b == c * c
+  pure [ a, b, c ]
