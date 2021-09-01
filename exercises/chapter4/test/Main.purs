@@ -9,7 +9,7 @@ import Data.Maybe (Maybe(..))
 import Data.Path (Path(..), filename, root)
 import Data.Tuple.Nested ((/\))
 import Effect (Effect)
-import Test.MySolutions (isEven, countEven, squared, keepNonNegative, keepNonNegativeRewrite, (<$?>), isPrime, cartesianProduct, triples)
+import Test.MySolutions (isEven, countEven, squared, keepNonNegative, keepNonNegativeRewrite, (<$?>), isPrime, cartesianProduct, triples, primeFactors)
 import Test.Unit (TestSuite, suite, test)
 import Test.Unit.Assert (assert, assertFalse)
 import Test.Unit.Assert as Assert
@@ -121,7 +121,6 @@ main =
           Assert.equal (sort [ [ 3, 4, 5 ], [ 5, 12, 13 ], [ 6, 8, 10 ] ])
             $ sort
             $ triples 13
-{-  Move this block comment starting point to enable more tests
       suite "Exercise - primeFactors" do
         let
           primeFactorsTest :: Int -> Array Int -> _
@@ -137,6 +136,7 @@ main =
         primeFactorsTest 6 [3, 2]
         primeFactorsTest 18 [3, 3, 2]
         primeFactorsTest 210 [ 7, 5, 3, 2 ]
+    {-  Move this block comment starting point to enable more tests
     suite "Exercise Group - Folds and Tail Recursion" do
       test "Exercise - allTrue" do
         assert "all elements true"

@@ -2,10 +2,10 @@ module Test.MySolutions where
 
 import Prelude
 
-import Data.Array (filter, head, null, tail, (..), length)
+import Control.Alternative (guard)
+import Data.Array (filter, head, null, tail, (..), length, reverse)
 import Data.Maybe (fromMaybe)
 import Data.Ord (abs)
-import Control.Alternative (guard)
 
 isEven :: Int -> Boolean
 isEven n = if n == 0 
@@ -60,3 +60,10 @@ triples n = do
   guard $ (a < b) && (b < c)
   guard $ a * a + b * b == c * c
   pure [ a, b, c ]
+
+primeFactors :: Int -> Array Int
+primeFactors n = do
+  f <- reverse $ factors n
+  fi <- reverse $ f
+  guard $ isPrime fi
+  pure fi
