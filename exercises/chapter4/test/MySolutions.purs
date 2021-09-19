@@ -70,3 +70,11 @@ primeFactors n = do
 
 allTrue :: Array Boolean -> Boolean
 allTrue = foldl (\cur prev -> cur && prev) true
+
+fibTailRec :: Int -> Int
+fibTailRec 0 = 0
+fibTailRec 1 = 1
+fibTailRec n = fibTailRec' 2 1 where
+  fibTailRec' :: Int -> Int -> Int
+  fibTailRec' inc acc | inc == n = acc
+  fibTailRec' inc acc = fibTailRec' (inc + 1) (acc + fibTailRec (inc - 1))

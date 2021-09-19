@@ -21,6 +21,7 @@ import Test.MySolutions (
   , triples
   , primeFactors
   , allTrue
+  , fibTailRec
 )
 import Test.Unit (TestSuite, suite, test)
 import Test.Unit.Assert (assert, assertFalse)
@@ -154,7 +155,6 @@ main =
           $ allTrue [ true, true, true ]
         assertFalse "some elements false"
           $ allTrue [ true, false, true ]
-    {-  Move this block comment starting point to enable more tests
       suite "Exercise - fibTailRec" do
         test "Verify 0" do
           Assert.equal 0
@@ -165,6 +165,7 @@ main =
         test "Verify 44" do
           Assert.equal 701408733
             $ fibTailRec 44
+    {-  Move this block comment starting point to enable more tests
       suite "Exercise - reverse" do
         test "Empty Array" do
           Assert.equal ([] :: Array Int)
