@@ -3,7 +3,7 @@ module Test.MySolutions where
 import Prelude
 
 import Control.Alternative (guard)
-import Data.Array (filter, head, null, tail, (..), length, reverse, foldl)
+import Data.Array (filter, head, null, tail, (..), length, foldl, (:))
 import Data.Maybe (fromMaybe)
 import Data.Ord (abs)
 
@@ -78,3 +78,6 @@ fibTailRec n = fibTailRec' 2 1 where
   fibTailRec' :: Int -> Int -> Int
   fibTailRec' inc acc | inc == n = acc
   fibTailRec' inc acc = fibTailRec' (inc + 1) (acc + fibTailRec (inc - 1))
+
+reverse :: forall a. Array a -> Array a
+reverse = foldl (\arr cur -> cur : arr) []
