@@ -6,6 +6,8 @@ import Control.Alternative (guard)
 import Data.Array (filter, head, null, tail, (..), length, foldl, (:))
 import Data.Maybe (fromMaybe)
 import Data.Ord (abs)
+import Data.Path (Path, isDirectory)
+import Test.Examples (allFiles)
 
 isEven :: Int -> Boolean
 isEven n = if n == 0 
@@ -81,3 +83,9 @@ fibTailRec n = fibTailRec' 2 1 where
 
 reverse :: forall a. Array a -> Array a
 reverse = foldl (\arr cur -> cur : arr) []
+
+onlyFiles :: Path -> Array Path
+onlyFiles path = do
+  f <- allFiles path
+  guard $ not $ isDirectory f
+  pure f

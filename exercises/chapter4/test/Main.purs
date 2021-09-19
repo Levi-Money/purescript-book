@@ -23,6 +23,7 @@ import Test.MySolutions (
   , allTrue
   , fibTailRec
   , reverse
+  , onlyFiles
 )
 import Test.Unit (TestSuite, suite, test)
 import Test.Unit.Assert (assert, assertFalse)
@@ -176,7 +177,6 @@ main =
         test "More than 1 element" do
           Assert.equal [ 3, 2, 1 ]
             $ reverse [ 1, 2, 3 ]
-    {-  Move this block comment starting point to enable more tests
     suite "Exercise Group - Filesystem" do
       test "Exercise - onlyFiles" do
         Assert.equal
@@ -190,6 +190,7 @@ main =
           ]
           $ map filename
           $ onlyFiles root
+    {-  Move this block comment starting point to enable more tests
       suite "Exercise - whereIs" do
         test "locates a file"
           $ Assert.equal (Just ("/bin/"))
