@@ -9,7 +9,19 @@ import Data.Maybe (Maybe(..))
 import Data.Path (Path(..), filename, root)
 import Data.Tuple.Nested ((/\))
 import Effect (Effect)
-import Test.MySolutions (isEven, countEven, squared, keepNonNegative, keepNonNegativeRewrite, (<$?>), isPrime, cartesianProduct, triples, primeFactors)
+import Test.MySolutions (
+    isEven
+  , countEven
+  , squared
+  , keepNonNegative
+  , keepNonNegativeRewrite
+  , (<$?>)
+  , isPrime
+  , cartesianProduct
+  , triples
+  , primeFactors
+  , allTrue
+)
 import Test.Unit (TestSuite, suite, test)
 import Test.Unit.Assert (assert, assertFalse)
 import Test.Unit.Assert as Assert
@@ -136,13 +148,13 @@ main =
         primeFactorsTest 6 [3, 2]
         primeFactorsTest 18 [3, 3, 2]
         primeFactorsTest 210 [ 7, 5, 3, 2 ]
-    {-  Move this block comment starting point to enable more tests
     suite "Exercise Group - Folds and Tail Recursion" do
       test "Exercise - allTrue" do
         assert "all elements true"
           $ allTrue [ true, true, true ]
         assertFalse "some elements false"
           $ allTrue [ true, false, true ]
+    {-  Move this block comment starting point to enable more tests
       suite "Exercise - fibTailRec" do
         test "Verify 0" do
           Assert.equal 0

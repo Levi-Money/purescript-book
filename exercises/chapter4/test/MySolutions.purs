@@ -3,7 +3,7 @@ module Test.MySolutions where
 import Prelude
 
 import Control.Alternative (guard)
-import Data.Array (filter, head, null, tail, (..), length, reverse)
+import Data.Array (filter, head, null, tail, (..), length, reverse, foldl)
 import Data.Maybe (fromMaybe)
 import Data.Ord (abs)
 
@@ -67,3 +67,6 @@ primeFactors n = do
   fi <- reverse $ f
   guard $ isPrime fi
   pure fi
+
+allTrue :: Array Boolean -> Boolean
+allTrue = foldl (\cur prev -> cur && prev) true
