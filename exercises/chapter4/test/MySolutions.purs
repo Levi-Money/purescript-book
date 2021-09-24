@@ -3,10 +3,13 @@ module Test.MySolutions where
 import Prelude
 
 import Control.Alternative (guard)
-import Data.Array (filter, head, null, tail, (..), length, foldl, (:))
-import Data.Maybe (fromMaybe)
+import Data.Array (filter, foldl, head, last, length, null, tail, (..), (:))
+import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Ord (abs)
-import Data.Path (Path, isDirectory)
+import Data.Path (Path(..), filename, isDirectory, ls)
+import Data.String (contains, split)
+import Data.String.Pattern (Pattern(..))
+import Debug (spy)
 import Test.Examples (allFiles)
 
 isEven :: Int -> Boolean
@@ -89,3 +92,16 @@ onlyFiles path = do
   f <- allFiles path
   guard $ not $ isDirectory f
   pure f
+
+allDirectories :: Path -> Array Path
+allDirectories path = path : do
+  child <- ls path
+  guard $ isDirectory child
+  allDirectories child
+
+whereIs :: Path -> String -> Maybe Path
+whereIs path file = last $ do
+    d <- allDirectories path
+    f <- onlyFiles d
+    guard $ contains (Pattern file) (filename f)
+    pure d
