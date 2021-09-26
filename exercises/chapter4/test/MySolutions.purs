@@ -3,10 +3,10 @@ module Test.MySolutions where
 import Prelude
 
 import Control.Alternative (guard)
-import Data.Array (filter, foldl, head, last, length, null, tail, (..), (:))
+import Data.Array (filter, foldl, head, last, length, null, sort, tail, (..), (:))
 import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Ord (abs)
-import Data.Path (Path(..), filename, isDirectory, ls)
+import Data.Path (Path(..), filename, isDirectory, ls, size)
 import Data.String (contains, split)
 import Data.String.Pattern (Pattern(..))
 import Debug (spy)
@@ -105,3 +105,13 @@ whereIs path file = last $ do
     f <- onlyFiles d
     guard $ contains (Pattern file) (filename f)
     pure d
+
+largestSmallest :: Path -> Array Path
+largestSmallest path = foldl loop [] (onlyFiles path) where
+  loop :: Array Path -> Path -> Array Path
+  loop [largest, smallest] current | size current < size smallest = [largest, current]
+                                   | size current > size largest  = [current, smallest]
+                                   | otherwise                    = [largest, smallest]
+  loop [last] current              | size current < size last     = [current, last]
+                                   | otherwise                    = [last, current]
+  loop arr current                                                = current : arr
