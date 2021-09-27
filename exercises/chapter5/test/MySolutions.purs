@@ -3,6 +3,7 @@ module Test.MySolutions where
 import Prelude
 
 import ChapterExamples (Person, Address)
+import Data.Picture (Shape(..))
 
 factorial :: Int -> Int
 factorial 0 = 1
@@ -26,3 +27,6 @@ sameCity' p1 p2 = p1.address.city == p2.address.city
 fromSingleton :: forall a. a -> Array a -> a
 fromSingleton _ [value] = value
 fromSingleton def _ = def
+
+circleAtOrigin :: Shape
+circleAtOrigin = Circle { x: 0.0 , y: 0.0 } 10.0
