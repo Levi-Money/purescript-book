@@ -22,3 +22,7 @@ sameCity p1 p2 = p1.address.city == p2.address.city
 
 sameCity' :: forall r. {address :: Address | r} -> {address :: Address | r} -> Boolean
 sameCity' p1 p2 = p1.address.city == p2.address.city
+
+fromSingleton :: forall a. a -> Array a -> a
+fromSingleton _ [value] = value
+fromSingleton def _ = def
