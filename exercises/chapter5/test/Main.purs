@@ -33,7 +33,6 @@ main :: Effect Unit
 main =
   runTest do
     runChapterExamples
-    {-  Move this block comment starting point to enable more tests
     suite "Exercise Group - Simple Pattern Matching" do
       test "Exercise - factorial" do
         Assert.equal 1
@@ -44,6 +43,7 @@ main =
           $ factorial 4
         Assert.equal 3628800
           $ factorial 10
+    {-  Move this block comment starting point to enable more tests
       test "Exercise - binomial" do
         Assert.equal 1
           $ binomial 10 0
