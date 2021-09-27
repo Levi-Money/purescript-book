@@ -2,7 +2,7 @@ module Test.MySolutions where
 
 import Prelude
 
-import ChapterExamples (Person)
+import ChapterExamples (Person, Address)
 
 factorial :: Int -> Int
 factorial 0 = 1
@@ -19,3 +19,6 @@ pascal n k = binomial (n - 1) (k - 1) + binomial (n - 1) k
 
 sameCity :: Person -> Person -> Boolean
 sameCity p1 p2 = p1.address.city == p2.address.city
+
+sameCity' :: forall r. {address :: Address | r} -> {address :: Address | r} -> Boolean
+sameCity' p1 p2 = p1.address.city == p2.address.city
