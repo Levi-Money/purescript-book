@@ -82,7 +82,6 @@ main =
       test "Exercise - circleAtOrigin" do
         Assert.equal origin
           $ getCenter circleAtOrigin
-    {-  Move this block comment starting point to enable more tests
       test "Exercise - doubleScaleAndCenter" do
         Assert.equal (Circle origin 10.0)
           $ doubleScaleAndCenter $ Circle origin 5.0
@@ -98,6 +97,7 @@ main =
           $ doubleScaleAndCenter $ Line { x: 0.0, y: 4.0 } { x: 4.0, y: 8.0 }
         Assert.equal (Text { x: 0.0, y: 0.0 } "Hello .purs!" )
           $ doubleScaleAndCenter $ Text { x: 4.0, y: 6.0 } "Hello .purs!"
+    {-  Move this block comment starting point to enable more tests
       test "Exercise - shapeText" do
         Assert.equal (Just "Hello .purs!")
           $ shapeText $ Text origin "Hello .purs!"
