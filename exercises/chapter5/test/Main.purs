@@ -97,7 +97,6 @@ main =
           $ doubleScaleAndCenter $ Line { x: 0.0, y: 4.0 } { x: 4.0, y: 8.0 }
         Assert.equal (Text { x: 0.0, y: 0.0 } "Hello .purs!" )
           $ doubleScaleAndCenter $ Text { x: 4.0, y: 6.0 } "Hello .purs!"
-    {-  Move this block comment starting point to enable more tests
       test "Exercise - shapeText" do
         Assert.equal (Just "Hello .purs!")
           $ shapeText $ Text origin "Hello .purs!"
@@ -107,6 +106,7 @@ main =
           $ shapeText $ Rectangle origin 1.0 1.0
         Assert.equal Nothing
           $ shapeText $ Line origin { x: 1.0, y: 1.0 }
+    {-  Move this block comment starting point to enable more tests
     suite "Exercise Group - Newtype" do
       test "Exercise - calculateWattage" do
         Assert.equal 60.0
