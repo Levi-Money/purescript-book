@@ -2,8 +2,10 @@ module Test.MySolutions where
 
 import Prelude
 
-import ChapterExamples (Person, Address)
+import ChapterExamples (Address, Amp(..), Person, Volt(..))
 import Data.Picture (Shape(..), Point, getCenter, origin)
+
+newtype Watt = Watt Number
 
 factorial :: Int -> Int
 factorial 0 = 1
@@ -48,3 +50,6 @@ doubleScaleAndCenter = centerShape <<< scaleShape 2.0 where
         scalePoint :: Point -> Point
         scalePoint { x, y } = { x: x * scale, y: y * scale }
     scaleShape _ (Text point text)     = Text point text
+
+calculateWattage :: Amp -> Volt -> Watt
+calculateWattage (Amp amp) (Volt volt) = Watt (amp * volt)
