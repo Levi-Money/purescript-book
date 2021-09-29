@@ -5,6 +5,7 @@ import Prelude
 import ChapterExamples (Address, Amp(..), Person, Volt(..))
 import Data.Maybe (Maybe(..))
 import Data.Picture (Point, Shape(..), getCenter, origin)
+import Math (pi)
 
 newtype Watt = Watt Number
 
@@ -58,3 +59,8 @@ calculateWattage (Amp amp) (Volt volt) = Watt (amp * volt)
 shapeText :: Shape -> Maybe String
 shapeText (Text _ text) = Just text
 shapeText _ = Nothing
+
+area :: Shape -> Number
+area (Circle _ r) = pi * r * r
+area (Rectangle _ w h) = w * h
+area _ = 0.0
