@@ -106,12 +106,12 @@ main =
           $ shapeText $ Rectangle origin 1.0 1.0
         Assert.equal Nothing
           $ shapeText $ Line origin { x: 1.0, y: 1.0 }
-    {-  Move this block comment starting point to enable more tests
     suite "Exercise Group - Newtype" do
       test "Exercise - calculateWattage" do
         Assert.equal 60.0
           $ let (Watt w) = calculateWattage (Amp 0.5) (Volt 120.0)
             in w
+    {-  Move this block comment starting point to enable more tests
     suite "Exercise Group - Vector Graphics" do
       test "Exercise - area" do
         Assert.equal 50
