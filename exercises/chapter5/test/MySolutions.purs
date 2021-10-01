@@ -79,7 +79,6 @@ clip picture clipPoint clipW clipH = filter (buildBoundsFilter (Pict.shapeBounds
     buildBoundsFilter :: Pict.Bounds -> (Pict.Shape -> Boolean)
     buildBoundsFilter rectBounds = \pictShape -> rectBounds <$*> Pict.shapeBounds pictShape
 
-{-  We need to clip that given picture with that clip fn and calculates the bounds of the new picture -}
 shapeBounds :: ClippedShape -> Pict.Bounds
 shapeBounds (Clipped picture point w h) = Pict.bounds $ clip picture point w h
 shapeBounds (Shape shape) = Pict.shapeBounds shape
