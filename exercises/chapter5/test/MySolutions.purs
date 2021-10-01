@@ -77,7 +77,7 @@ infix 9 contain as <$*>
 clip :: Pict.Picture -> Pict.Point -> Number -> Number -> Pict.Picture
 clip picture clipPoint clipW clipH = filter (buildBoundsFilter (Pict.shapeBounds (Pict.Rectangle clipPoint clipW clipH) )) picture where
     buildBoundsFilter :: Pict.Bounds -> (Pict.Shape -> Boolean)
-    buildBoundsFilter rectBounds = \pictShape -> rectBounds <$*> Pict.shapeBounds pictShape
+    buildBoundsFilter clipBounds = \pictShape -> clipBounds <$*> Pict.shapeBounds pictShape
 
 shapeBounds :: ClippedShape -> Pict.Bounds
 shapeBounds (Clipped picture point w h) = Pict.bounds $ clip picture point w h
