@@ -22,7 +22,6 @@ main =
         Assert.equal "(1.0, 2.0)"
           $ show
           $ Point {x: 1.0, y: 2.0}
-    {-  Move this block comment starting point to enable more tests
     suite "Common Type Classes" do
       let cpx real imaginary = Complex {real, imaginary}
       suite "Show Complex" do
@@ -34,6 +33,7 @@ main =
           Assert.equal "1.0-2.0i"
             $ show
             $ cpx 1.0 (-2.0)
+    {-  Move this block comment starting point to enable more tests
       suite "Eq Complex" do
         test "equal" do
           Assert.equal (cpx 1.0 2.0)
