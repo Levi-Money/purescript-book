@@ -18,3 +18,6 @@ data Complex = Complex {
 instance showComplex :: Show Complex where
   show (Complex {real, imaginary}) = show real <> op <> show imaginary <> "i" where
     op = if imaginary < 0.0 then "" else "+"
+
+instance eqComplex :: Eq Complex where
+  eq (Complex cp1) (Complex cp2) = cp1.real == cp2.real && cp1.imaginary == cp2.imaginary

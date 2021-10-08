@@ -33,7 +33,6 @@ main =
           Assert.equal "1.0-2.0i"
             $ show
             $ cpx 1.0 (-2.0)
-    {-  Move this block comment starting point to enable more tests
       suite "Eq Complex" do
         test "equal" do
           Assert.equal (cpx 1.0 2.0)
@@ -42,6 +41,7 @@ main =
           Assert.expectFailure "should not be equal"
             $ Assert.equal (cpx 5.0 2.0)
               $ cpx 1.0 2.0
+    {-  Move this block comment starting point to enable more tests
       suite "Semiring Complex" do
         test "add" do
           Assert.equal (cpx 4.0 6.0)
