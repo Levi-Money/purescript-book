@@ -41,7 +41,6 @@ main =
           Assert.expectFailure "should not be equal"
             $ Assert.equal (cpx 5.0 2.0)
               $ cpx 1.0 2.0
-    {-  Move this block comment starting point to enable more tests
       suite "Semiring Complex" do
         test "add" do
           Assert.equal (cpx 4.0 6.0)
@@ -56,6 +55,7 @@ main =
         test "multiply one" do
           Assert.equal v
             $ mul v one
+    {-  Move this block comment starting point to enable more tests
       suite "Ring Complex" do
         test "subtract" do
           Assert.equal (cpx 2.0 3.0)
