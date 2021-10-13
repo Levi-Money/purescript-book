@@ -30,3 +30,5 @@ instance showComplex :: Show Complex where
 
 instance eqComplex :: Eq Complex where
   eq (Complex cp1) (Complex cp2) = cp1.real == cp2.real && cp1.imaginary == cp2.imaginary
+
+derive newtype instance ringComplex :: Ring Complex
