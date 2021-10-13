@@ -55,11 +55,11 @@ main =
         test "multiply one" do
           Assert.equal v
             $ mul v one
-    {-  Move this block comment starting point to enable more tests
       suite "Ring Complex" do
         test "subtract" do
           Assert.equal (cpx 2.0 3.0)
             $ sub (cpx 3.0 5.0) (cpx 1.0 2.0)
+    {-  Move this block comment starting point to enable more tests
       suite "Show Shape" do
         test "circle" do
           Assert.equal "(Circle (1.0, 2.0) 3.0)"

@@ -18,11 +18,10 @@ data Complex = Complex {
 makeComplex :: Number -> Number -> Complex
 makeComplex real imaginary = Complex { real, imaginary }
 
-instance addComplex :: Semiring Complex where
+instance semiringComplex :: Semiring Complex where
   add (Complex c1) (Complex c2) = makeComplex (add c1.real c2.real) (add c1.imaginary c2.imaginary)
-  zero                          = makeComplex zero zero
   mul (Complex c1) (Complex c2) = makeComplex (c1.real * c2.real - c1.imaginary * c2.imaginary) (c1.real * c2.imaginary + c2.real * c1.imaginary)
-  -- FIXME: We need to fix multiplication
+  zero                          = makeComplex zero zero
   one                           = makeComplex one zero
 
 instance showComplex :: Show Complex where
