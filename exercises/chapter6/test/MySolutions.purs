@@ -10,7 +10,7 @@ newtype Point = Point
 instance showPoint :: Show Point where
   show (Point point) = "(" <> show point.x <> ", " <> show point.y <> ")"
 
-data Complex = Complex {
+newtype Complex = Complex {
     real :: Number
   , imaginary :: Number
 }
