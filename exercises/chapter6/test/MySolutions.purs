@@ -2,21 +2,27 @@ module Test.MySolutions where
 
 import Prelude
 
+import Data.Generic.Rep (class Generic)
+import Data.Show.Generic (genericShow)
+
 newtype Point = Point
   { x :: Number
   , y :: Number
   }
 
-instance showPoint :: Show Point where
-  show (Point point) = "(" <> show point.x <> ", " <> show point.y <> ")"
+data Shape
+  = Circle Point Number
+  | Rectangle Point Number Number
+  | Line Point Point
+  | Text Point String
 
 newtype Complex = Complex {
     real :: Number
   , imaginary :: Number
 }
 
-makeComplex :: Number -> Number -> Complex
-makeComplex real imaginary = Complex { real, imaginary }
+instance showPoint :: Show Point where
+  show (Point point) = "(" <> show point.x <> ", " <> show point.y <> ")"
 
 instance semiringComplex :: Semiring Complex where
   add (Complex c1) (Complex c2) = makeComplex (add c1.real c2.real) (add c1.imaginary c2.imaginary)
@@ -31,4 +37,12 @@ instance showComplex :: Show Complex where
 instance eqComplex :: Eq Complex where
   eq (Complex cp1) (Complex cp2) = cp1.real == cp2.real && cp1.imaginary == cp2.imaginary
 
+instance showShape :: Show Shape where
+  show = genericShow
+
+derive instance genericShape :: Generic Shape _
+
 derive newtype instance ringComplex :: Ring Complex
+
+makeComplex :: Number -> Number -> Complex
+makeComplex real imaginary = Complex { real, imaginary }
