@@ -46,3 +46,10 @@ derive newtype instance ringComplex :: Ring Complex
 
 makeComplex :: Number -> Number -> Complex
 makeComplex real imaginary = Complex { real, imaginary }
+
+data NonEmpty a = NonEmpty a (Array a)
+
+derive instance eqNonEmpty :: Eq (NonEmpty Int)
+derive instance genericNonEmpty :: Generic (NonEmpty Int) _
+instance showNonEmpty :: Show (NonEmpty Int) where
+  show = genericShow
