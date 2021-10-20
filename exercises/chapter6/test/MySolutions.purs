@@ -53,3 +53,6 @@ derive instance eqNonEmpty :: Eq (NonEmpty Int)
 derive instance genericNonEmpty :: Generic (NonEmpty Int) _
 instance showNonEmpty :: Show (NonEmpty Int) where
   show = genericShow
+
+instance semigroupNonEmpty :: Semigroup (NonEmpty Int) where
+  append (NonEmpty n arr) (NonEmpty n2 arr2) = NonEmpty n $ append arr $ append [n2] arr2
