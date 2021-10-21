@@ -56,3 +56,5 @@ instance showNonEmpty :: Show (NonEmpty Int) where
 
 instance semigroupNonEmpty :: Semigroup (NonEmpty Int) where
   append (NonEmpty n arr) (NonEmpty n2 arr2) = NonEmpty n $ append arr $ append [n2] arr2
+
+derive instance functorNonEmpty :: Functor NonEmpty
