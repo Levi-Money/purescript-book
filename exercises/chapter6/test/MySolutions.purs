@@ -58,3 +58,12 @@ instance semigroupNonEmpty :: Semigroup (NonEmpty Int) where
   append (NonEmpty n arr) (NonEmpty n2 arr2) = NonEmpty n $ append arr $ append [n2] arr2
 
 derive instance functorNonEmpty :: Functor NonEmpty
+
+data Extended a = Infinite | Finite a
+
+derive instance eqExtended :: Eq (Extended Int)
+instance ordExtended' :: Ord (Extended Int) where
+  compare Infinite Infinite = EQ
+  compare Infinite _ = GT
+  compare _ Infinite = LT
+  compare (Finite n) (Finite n2) = compare n n2
