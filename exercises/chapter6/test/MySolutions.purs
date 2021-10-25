@@ -4,6 +4,7 @@ import Prelude
 
 import Data.Generic.Rep (class Generic)
 import Data.Show.Generic (genericShow)
+import Data.Foldable (class Foldable, foldl, foldr, foldMap)
 
 newtype Point = Point
   { x :: Number
@@ -67,3 +68,8 @@ instance ordExtended' :: Ord (Extended Int) where
   compare Infinite _ = GT
   compare _ Infinite = LT
   compare (Finite n) (Finite n2) = compare n n2
+
+instance foldableNonEmpty :: Foldable NonEmpty where
+  foldl fn initial (NonEmpty a m) = foldl fn (fn initial a) m
+  foldr fn initial (NonEmpty a m) = fn a (foldr fn initial m)
+  foldMap fn (NonEmpty a m) = fn a <> foldMap fn m
