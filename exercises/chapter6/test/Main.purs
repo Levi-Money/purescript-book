@@ -100,7 +100,6 @@ main =
           Assert.equal GT
             $ compare Infinite
             $ Finite 5
-    {-  Move this block comment starting point to enable more tests
         test "finite < infinity" do
           Assert.equal LT
             $ compare (Finite 5) Infinite
@@ -116,6 +115,7 @@ main =
           Assert.equal LT
             $ compare (Finite 5)
             $ Finite 6
+    {-  Move this block comment starting point to enable more tests
       suite "Foldable NonEmpty" do
         test "foldl" do
           Assert.equal 123
