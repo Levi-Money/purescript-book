@@ -73,3 +73,11 @@ instance foldableNonEmpty :: Foldable NonEmpty where
   foldl fn initial (NonEmpty a m) = foldl fn (fn initial a) m
   foldr fn initial (NonEmpty a m) = fn a (foldr fn initial m)
   foldMap fn (NonEmpty a m) = fn a <> foldMap fn m
+
+data OneMore :: (Type -> Type) -> Type -> Type
+data OneMore f a = OneMore a (f a)
+
+instance foldableOneMore :: Foldable f => Foldable (OneMore f) where
+  foldl fn initial (OneMore a b) =  foldl fn (fn initial a) b
+  foldr fn initial (OneMore a b) = fn a (foldr fn initial b)
+  foldMap fn (OneMore a b) = fn a <> foldMap fn b
