@@ -5,7 +5,7 @@ import Prelude
 import Data.Generic.Rep (class Generic)
 import Data.Show.Generic (genericShow)
 import Data.Foldable (class Foldable, foldl, foldr, foldMap)
-import Data.Array (nubEq)
+import Data.Array (nubEq, nub)
 
 newtype Point = Point
   { x :: Number
@@ -88,3 +88,9 @@ derive instance eqShape :: Eq Shape
 
 dedupShapes :: Array Shape -> Array Shape
 dedupShapes = nubEq
+
+derive instance ordPoint :: Ord Point
+derive instance ordShape :: Ord Shape
+
+dedupShapesFast :: Array Shape -> Array Shape
+dedupShapesFast = nub
