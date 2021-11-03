@@ -4,8 +4,9 @@ import Prelude
 
 import Data.Generic.Rep (class Generic)
 import Data.Show.Generic (genericShow)
-import Data.Foldable (class Foldable, foldl, foldr, foldMap)
+import Data.Foldable (class Foldable, foldl, foldr, foldMap, maximum)
 import Data.Array (nubEq, nub)
+import Data.Maybe (Maybe(..))
 
 newtype Point = Point
   { x :: Number
@@ -94,3 +95,7 @@ derive instance ordShape :: Ord Shape
 
 dedupShapesFast :: Array Shape -> Array Shape
 dedupShapesFast = nub
+
+unsafeMaximum :: Partial => Array Int -> Int
+unsafeMaximum arr = case maximum arr of
+  Just max -> max
