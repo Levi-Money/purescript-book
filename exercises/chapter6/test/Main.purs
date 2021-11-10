@@ -164,7 +164,6 @@ main =
         Assert.equal 42
           $ unsafePartial
           $ unsafeMaximum [ 1, 2, 42, 3 ]
-    {-  Move this block comment starting point to enable more tests
       let
         m1 = Multiply 3
         m2 = Multiply 4
@@ -183,6 +182,7 @@ main =
               got = act m1 a
           Assert.assert ("expected one of " <> show expectOneOf <> ", got " <> show got)
             $ elem got expectOneOf
+    {-  Move this block comment starting point to enable more tests
       -- Multiply String is the actual exercise question
       suite "Action Multiply String" do
         let

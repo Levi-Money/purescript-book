@@ -99,3 +99,21 @@ dedupShapesFast = nub
 unsafeMaximum :: Partial => Array Int -> Int
 unsafeMaximum arr = case maximum arr of
   Just max -> max
+
+newtype Multiply = Multiply Int
+
+instance semigroupMultiply :: Semigroup Multiply where
+  append (Multiply n) (Multiply m) = Multiply (n * m)
+
+instance monoidMultiply :: Monoid Multiply where
+  mempty = Multiply 1
+
+derive instance eqMultiply :: Eq Multiply
+
+class Monoid m <= Action m a where
+  act :: m -> a -> a
+
+instance actionMultiplyInt :: Action Multiply Int where
+  act (Multiply n) 1      = n
+  act m1 a                = act (m1 <> Multiply a) 1
+  
