@@ -182,7 +182,6 @@ main =
               got = act m1 a
           Assert.assert ("expected one of " <> show expectOneOf <> ", got " <> show got)
             $ elem got expectOneOf
-    {-  Move this block comment starting point to enable more tests
       -- Multiply String is the actual exercise question
       suite "Action Multiply String" do
         let
@@ -196,6 +195,7 @@ main =
         test "concrete" do
           Assert.equal "foofoofoo"
             $ act m1 a
+    {-  Move this block comment starting point to enable more tests
       suite "Action m (Array a)" do
         suite "Action Multiply (Array Int)" do
           let

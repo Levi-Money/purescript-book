@@ -7,6 +7,7 @@ import Data.Show.Generic (genericShow)
 import Data.Foldable (class Foldable, foldl, foldr, foldMap, maximum)
 import Data.Array (nubEq, nub)
 import Data.Maybe (Maybe(..))
+import Data.Monoid(power)
 
 newtype Point = Point
   { x :: Number
@@ -116,4 +117,6 @@ class Monoid m <= Action m a where
 instance actionMultiplyInt :: Action Multiply Int where
   act (Multiply n) 1      = n
   act m1 a                = act (m1 <> Multiply a) 1
-  
+
+instance actionMultiplyString :: Action Multiply String where
+  act (Multiply n) a = power a n
