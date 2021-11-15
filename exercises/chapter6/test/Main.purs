@@ -195,7 +195,6 @@ main =
         test "concrete" do
           Assert.equal "foofoofoo"
             $ act m1 a
-    {-  Move this block comment starting point to enable more tests
       suite "Action m (Array a)" do
         suite "Action Multiply (Array Int)" do
           let
@@ -227,6 +226,7 @@ main =
               , "bazbazbaz"
               ]
               $ act m1 a
+      {-  Move this block comment starting point to enable more tests
       suite "Action m (Self m)" do
         let
           a = Self m1

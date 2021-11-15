@@ -120,3 +120,6 @@ instance actionMultiplyInt :: Action Multiply Int where
 
 instance actionMultiplyString :: Action Multiply String where
   act (Multiply n) a = power a n
+
+instance actionMultiplyArray :: Action m a => Action m (Array a) where
+  act m1 arr = foldMap (\n -> [act m1 n]) arr
