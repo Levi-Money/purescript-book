@@ -138,3 +138,8 @@ instance showSelf :: Show (Self Multiply) where
 
 instance actionSelf :: Monoid m => Action m (Self m) where
   act m1 (Self m2) = Self (m1 <> m2)
+
+{- The Action type class must implement functional
+dependency from m to a to reach the final instance for Multiply Int
+otherwise one can transform the monoidal values in
+something else (not the Int values) -}
