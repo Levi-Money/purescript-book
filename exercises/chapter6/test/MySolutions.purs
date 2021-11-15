@@ -136,5 +136,5 @@ derive instance genericSelf :: Generic (Self Multiply) _
 instance showSelf :: Show (Self Multiply) where
   show = genericShow
 
-instance actionMultiplySelf :: Monoid m => Action m (Self m) where
+instance actionSelf :: Monoid m => Action m (Self m) where
   act m1 (Self m2) = Self (m1 <> m2)
