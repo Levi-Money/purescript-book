@@ -110,6 +110,10 @@ instance monoidMultiply :: Monoid Multiply where
   mempty = Multiply 1
 
 derive instance eqMultiply :: Eq Multiply
+derive instance genericMultiply :: Generic Multiply _
+
+instance showMultiply :: Show Multiply where
+  show = genericShow
 
 class Monoid m <= Action m a where
   act :: m -> a -> a
@@ -123,3 +127,14 @@ instance actionMultiplyString :: Action Multiply String where
 
 instance actionMultiplyArray :: Action m a => Action m (Array a) where
   act m1 arr = foldMap (\n -> [act m1 n]) arr
+
+newtype Self m = Self m
+
+derive instance eqSelf :: Eq (Self Multiply)
+derive instance genericSelf :: Generic (Self Multiply) _
+
+instance showSelf :: Show (Self Multiply) where
+  show = genericShow
+
+instance actionMultiplySelf :: Monoid m => Action m (Self m) where
+  act m1 (Self m2) = Self (m1 <> m2)
