@@ -2,12 +2,13 @@ module Test.MySolutions where
 
 import Prelude
 
-import Data.Generic.Rep (class Generic)
-import Data.Show.Generic (genericShow)
+import Data.Array (difference, nub, nubByEq, nubEq, length, union)
 import Data.Foldable (class Foldable, foldl, foldr, foldMap, maximum)
-import Data.Array (nubEq, nub)
+import Data.Generic.Rep (class Generic)
+import Data.Hashable (class Hashable, hashEqual)
 import Data.Maybe (Maybe(..))
-import Data.Monoid(power)
+import Data.Monoid (power)
+import Data.Show.Generic (genericShow)
 
 newtype Point = Point
   { x :: Number
@@ -143,3 +144,13 @@ instance actionSelf :: Monoid m => Action m (Self m) where
 dependency from m to a to reach the final instance for Multiply Int
 otherwise one can transform the monoidal values in
 something else (not the Int values) -}
+
+dupsByEq :: forall a. Eq a => Hashable a => ( a -> a -> Boolean ) -> Array a -> Array a
+dupsByEq eq arr = case nubByEq eq arr of
+  uniqArr | length uniqArr < length arr -> difference arr uniqArr
+          | otherwise                   -> difference uniqArr arr
+
+arrayHasDuplicates :: forall a. Eq a => Hashable a => Array a -> Boolean
+arrayHasDuplicates arr = hashDups > 0 && eqDups > 0 where
+  hashDups = length  $ dupsByEq hashEqual arr
+  eqDups = length $ dupsByEq eq arr
