@@ -1,14 +1,8 @@
 module Test.MySolutions where
 
 import Prelude
-import Data.Maybe (Maybe)
+import Data.Maybe (Maybe(..))
 import Control.Apply (lift2)
-
--- combineList :: forall f a. Applicative f => List (f a) -> f (List a)
--- combineList (Cons x xs) = Cons <$> x <*> combineList xs
--- combineList (Cons x xs) = (Cons <$> x) <*> (combineList xs)
--- f ( xs -> Cons x xs ) <*> f xs =>
--- f (Cons x xs)
 
 addMaybe :: Maybe Int -> Maybe Int -> Maybe Int
 addMaybe = lift2 (+)
@@ -33,3 +27,13 @@ mulApply = lift2 (*)
 
 divApply :: forall f. Apply f => f Int -> f Int -> f Int
 divApply = lift2 (/)
+
+-- combineList :: forall f a. Applicative f => List (f a) -> f (List a)
+-- combineList (Cons x xs) = Cons <$> x <*> combineList xs
+-- combineList (Cons x xs) = (Cons <$> x) <*> (combineList xs)
+-- f ( xs -> Cons x xs ) <*> f xs =>
+-- f (Cons x xs)
+
+combineMaybe :: forall a f. Applicative f => Maybe (f a) -> f (Maybe a)
+combineMaybe Nothing = pure Nothing
+combineMaybe (Just x) = Just <$> x
