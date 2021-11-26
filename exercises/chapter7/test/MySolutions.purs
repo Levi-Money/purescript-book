@@ -21,3 +21,15 @@ mulMaybe = lift2 (*)
 
 divMaybe :: Maybe Int -> Maybe Int -> Maybe Int
 divMaybe = lift2 (/)
+
+addApply :: forall f. Apply f => f Int -> f Int -> f Int
+addApply = lift2 (+)
+
+subApply :: forall f. Apply f => f Int -> f Int -> f Int
+subApply = lift2 (-)
+
+mulApply :: forall f. Apply f => f Int -> f Int -> f Int
+mulApply = lift2 (*)
+
+divApply :: forall f. Apply f => f Int -> f Int -> f Int
+divApply = lift2 (/)
