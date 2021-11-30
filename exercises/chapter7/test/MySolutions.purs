@@ -1,11 +1,15 @@
 module Test.MySolutions where
 
 import Prelude
-import Data.Maybe (Maybe(..))
+
 import Control.Apply (lift2)
+import Data.AddressBook (Address, address)
+import Data.AddressBook.Validation (Errors, matches)
+import Data.Maybe (Maybe(..))
 import Data.String.Regex (Regex)
 import Data.String.Regex.Flags (noFlags)
 import Data.String.Regex.Unsafe (unsafeRegex)
+import Data.Validation.Semigroup (V)
 
 addMaybe :: Maybe Int -> Maybe Int -> Maybe Int
 addMaybe = lift2 (+)
@@ -46,3 +50,9 @@ stateRegex = unsafeRegex "^[a-zA-Z]{2}$" noFlags
 
 nonEmptyRegex :: Regex
 nonEmptyRegex = unsafeRegex "\\S" noFlags
+
+validateAddressImproved :: Address -> V Errors Address
+validateAddressImproved a =
+    address <$> matches "Street" nonEmptyRegex a.street
+            <*> matches "City" nonEmptyRegex a.city
+            <*> matches "State" stateRegex a.state
