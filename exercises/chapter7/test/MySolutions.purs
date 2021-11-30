@@ -3,6 +3,9 @@ module Test.MySolutions where
 import Prelude
 import Data.Maybe (Maybe(..))
 import Control.Apply (lift2)
+import Data.String.Regex (Regex)
+import Data.String.Regex.Flags (noFlags)
+import Data.String.Regex.Unsafe (unsafeRegex)
 
 addMaybe :: Maybe Int -> Maybe Int -> Maybe Int
 addMaybe = lift2 (+)
@@ -37,3 +40,6 @@ divApply = lift2 (/)
 combineMaybe :: forall a f. Applicative f => Maybe (f a) -> f (Maybe a)
 combineMaybe Nothing = pure Nothing
 combineMaybe (Just x) = Just <$> x
+
+stateRegex :: Regex
+stateRegex = unsafeRegex "^[a-zA-Z]{2}$" noFlags
