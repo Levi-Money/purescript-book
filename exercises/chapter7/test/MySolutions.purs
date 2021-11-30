@@ -43,3 +43,6 @@ combineMaybe (Just x) = Just <$> x
 
 stateRegex :: Regex
 stateRegex = unsafeRegex "^[a-zA-Z]{2}$" noFlags
+
+nonEmptyRegex :: Regex
+nonEmptyRegex = unsafeRegex "\\S" noFlags
