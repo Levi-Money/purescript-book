@@ -35,11 +35,18 @@ mulApply = lift2 (*)
 divApply :: forall f. Apply f => f Int -> f Int -> f Int
 divApply = lift2 (/)
 
+-- sequence :: forall a m. Applicative m => t (m a) -> m (t a)
 -- combineList :: forall f a. Applicative f => List (f a) -> f (List a)
 -- combineList (Cons x xs) = Cons <$> x <*> combineList xs
--- combineList (Cons x xs) = (Cons <$> x) <*> (combineList xs)
--- f ( xs -> Cons x xs ) <*> f xs =>
--- f (Cons x xs)
+
+-- combineList 1:2:Nil
+-- combineList (Cons (Just 1) (Just 2):Nil) = (Cons <$> (Just 1)) <*> combineList (Just 2):Nil)
+-- combineList (Cons (Just 1) (Just 2):Nil) = Just (\t -> Cons 1 t) <*> combineList (Just 2):Nil)
+-- combineList (Cons (Just 1) (Just 2):Nil) = Just (\t -> Cons 1 t) <*> ((Cons <$> Just 2) <*> combineList Nil)
+-- combineList (Cons (Just 1) (Just 2):Nil) = Just (\t -> Cons 1 t) <*> ((Cons <$> Just 2) <*> Just Nil)
+-- combineList (Cons (Just 1) (Just 2):Nil) = Just (\t -> Cons 1 t) <*> Just (\t' -> Cons 2 t') <*> Just Nil)
+-- combineList (Cons (Just 1) (Just 2):Nil) = Just (\t -> Cons 1 t) <*> Just (Cons 2 Nil)
+-- combineList (Cons (Just 1) (Just 2):Nil) = Just (Cons 1 (Cons 2 Nil))
 
 combineMaybe :: forall a f. Applicative f => Maybe (f a) -> f (Maybe a)
 combineMaybe Nothing = pure Nothing
