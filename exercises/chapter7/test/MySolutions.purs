@@ -5,7 +5,9 @@ import Prelude
 import Control.Apply (lift2)
 import Data.AddressBook (Address, address)
 import Data.AddressBook.Validation (Errors, matches)
+import Data.Generic.Rep (class Generic)
 import Data.Maybe (Maybe(..))
+import Data.Show.Generic (genericShow)
 import Data.String.Regex (Regex)
 import Data.String.Regex.Flags (noFlags)
 import Data.String.Regex.Unsafe (unsafeRegex)
@@ -63,3 +65,12 @@ validateAddressImproved a =
     address <$> matches "Street" nonEmptyRegex a.street
             <*> matches "City" nonEmptyRegex a.city
             <*> matches "State" stateRegex a.state
+
+data Tree a = Leaf | Branch (Tree a) a (Tree a)
+
+derive instance genericTree :: Generic (Tree a) _
+
+instance showTree :: Show a => Show (Tree a) where
+  show t = genericShow t
+
+derive instance eqTree :: Eq a => Eq (Tree a)
