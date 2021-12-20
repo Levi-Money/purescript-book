@@ -1,20 +1,4 @@
-module Test.MySolutions
-  ( Tree(..)
-  , addApply
-  , addMaybe
-  , combineMaybe
-  , divApply
-  , divMaybe
-  , leaf
-  , mulApply
-  , mulMaybe
-  , nonEmptyRegex
-  , stateRegex
-  , subApply
-  , subMaybe
-  , validateAddressImproved
-  )
-  where
+module Test.MySolutions where
 
 import Prelude
 
@@ -113,3 +97,13 @@ instance traversableTree :: Traversable Tree where
     sequence   (Branch x y z) = pure Branch <*> sequence x <*> y <*> sequence z
     traverse _ (Leaf)         = pure Leaf
     traverse f (Branch x y z) = pure Branch <*> traverse f x <*> f y <*> traverse f z
+
+traversePreOrder :: forall a m b. Applicative m => (a -> m b) -> Tree a -> m (Tree b)
+traversePreOrder _ (Leaf) = pure Leaf
+-- traversePreOrder f (Branch x y z) = pure ob <*> f y <*> traversePreOrder f x <*> traversePreOrder f z where
+--     ob xs ys zs = Branch ys xs zs
+traversePreOrder f (Branch x y z) = ado
+    ys <- f y
+    xs <- traversePreOrder f x
+    zs <- traversePreOrder f z
+    in Branch xs ys zs
