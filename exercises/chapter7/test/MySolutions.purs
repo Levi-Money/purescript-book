@@ -107,3 +107,11 @@ traversePreOrder f (Branch x y z) = ado
     xs <- traversePreOrder f x
     zs <- traversePreOrder f z
     in Branch xs ys zs
+
+traversePostOrder :: forall a m b. Applicative m => (a -> m b) -> Tree a -> m (Tree b)
+traversePostOrder _ (Leaf) = pure Leaf
+traversePostOrder f (Branch x y z) = ado
+    xs <- traversePostOrder f x
+    zs <- traversePostOrder f z
+    ys <- f y
+    in Branch xs ys zs

@@ -197,13 +197,13 @@ main =
           $ runWriter
           $ traversePreOrder (\x -> tell [ x ])
           $ Branch (Branch (leaf 3) 2 (leaf 4)) 1 (Branch (leaf 6) 5 (leaf 7))
-    {-  Move this block comment starting point to enable more tests
       test "Exercise - traversePostOrder" do
         Assert.equal (1 .. 7)
           $ snd
           $ runWriter
           $ traversePostOrder (\x -> tell [ x ])
           $ Branch (Branch (leaf 1) 3 (leaf 2)) 7 (Branch (leaf 4) 6 (leaf 5))
+    {-  Move this block comment starting point to enable more tests
       suite "Exercise - validatePersonOptionalAddress" do
         let
           examplePerson =
