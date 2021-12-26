@@ -2,9 +2,9 @@ module Test.MySolutions where
 
 import Prelude
 
-import Control.Apply (lift2)
-import Data.AddressBook (Address, address)
-import Data.AddressBook.Validation (Errors, matches)
+import Control.Apply (lift2, lift4)
+import Data.AddressBook (Address, Person, PhoneNumber, address, person)
+import Data.AddressBook.Validation (Errors, matches, nonEmpty, validateAddress, validatePhoneNumbers)
 import Data.Foldable (class Foldable, foldMap, foldl, foldr)
 import Data.Generic.Rep (class Generic)
 import Data.Maybe (Maybe(..))
@@ -115,3 +115,18 @@ traversePostOrder f (Branch x y z) = ado
     zs <- traversePostOrder f z
     ys <- f y
     in Branch xs ys zs
+
+type PersonOptionalAddress = {
+      firstName :: String
+    , lastName :: String
+    , homeAddress :: Maybe Address
+    , phones :: Array PhoneNumber
+}
+
+validatePersonOptionalAddress :: PersonOptionalAddress -> V Errors PersonOptionalAddress
+validatePersonOptionalAddress p = ado
+  firstName   <- nonEmpty "First Name" p.firstName
+  lastName    <- nonEmpty "Last Name" p.lastName
+  homeAddress <- traverse validateAddress p.homeAddress
+  phones      <- validatePhoneNumbers "Phone Numbers" p.phones
+  in { firstName, lastName, homeAddress, phones }

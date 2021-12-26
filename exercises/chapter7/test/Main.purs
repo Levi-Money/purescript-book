@@ -203,7 +203,6 @@ main =
           $ runWriter
           $ traversePostOrder (\x -> tell [ x ])
           $ Branch (Branch (leaf 1) 3 (leaf 2)) 7 (Branch (leaf 4) 6 (leaf 5))
-    {-  Move this block comment starting point to enable more tests
       suite "Exercise - validatePersonOptionalAddress" do
         let
           examplePerson =
@@ -218,7 +217,7 @@ main =
         test "Just Address" do
           Assert.equal (pure examplePerson)
             $ validatePersonOptionalAddress examplePerson
-        test "Nothing" do
+        test "Nothing" do 
           let
             examplePersonNoAddress = examplePerson { homeAddress = Nothing }
           Assert.equal (pure examplePersonNoAddress)
@@ -227,6 +226,7 @@ main =
           Assert.equal (invalid ([ "Field 'City' cannot be empty" ]))
             $ validatePersonOptionalAddress
             $ examplePerson { homeAddress = (Just $ address "123 Fake St." "" "CA") }
+    {-  Move this block comment starting point qto enable more tests
       suite "Exercise - sequenceUsingTraverse" do
         test "Just" do
           Assert.equal (Just [ 1, 2 ])
