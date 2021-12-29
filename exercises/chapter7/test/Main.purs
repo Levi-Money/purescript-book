@@ -233,7 +233,6 @@ main =
         test "Nothing" do
           Assert.equal Nothing
             $ sequenceUsingTraverse [ Just 1, Nothing ]
-    {-  Move this block comment starting point qto enable more tests
       suite "Exercise - traverseUsingSequence" do
         test "Just" do
           Assert.equal (Just [ 1, 2 ])
@@ -241,6 +240,7 @@ main =
         test "Nothing" do
           Assert.equal Nothing
             $ traverseUsingSequence fromNumber [ 1.0, 2.7 ]
+    {-  Move this block comment starting point qto enable more tests
 
 -}
 runChapterExamples :: TestSuite

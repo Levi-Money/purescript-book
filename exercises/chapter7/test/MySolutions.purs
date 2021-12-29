@@ -132,4 +132,7 @@ validatePersonOptionalAddress p = ado
   in { firstName, lastName, homeAddress, phones }
 
 sequenceUsingTraverse :: forall a f t. Traversable t => Applicative f => t (f a) -> f (t a)
-sequenceUsingTraverse xs = traverse (\y -> y) xs
+sequenceUsingTraverse = traverse (\y -> y)
+
+traverseUsingSequence :: forall c d m t. Traversable t => Applicative m => (c -> m d) -> t c -> m (t d)
+traverseUsingSequence f xs = sequence (f <$> xs)
