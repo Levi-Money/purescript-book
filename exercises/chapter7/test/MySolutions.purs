@@ -130,3 +130,6 @@ validatePersonOptionalAddress p = ado
   homeAddress <- traverse validateAddress p.homeAddress
   phones      <- validatePhoneNumbers "Phone Numbers" p.phones
   in { firstName, lastName, homeAddress, phones }
+
+sequenceUsingTraverse :: forall a f t. Traversable t => Applicative f => t (f a) -> f (t a)
+sequenceUsingTraverse xs = traverse (\y -> y) xs
