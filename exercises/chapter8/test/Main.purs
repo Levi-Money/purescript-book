@@ -19,7 +19,6 @@ main :: Effect Unit
 main =
   runTest do
     runChapterExamples
-    {-  Move this block comment starting point to enable more tests
     suite "Exercises Group - Monads and Applicatives" do
       suite "third" do
         test "No elements"
@@ -37,6 +36,7 @@ main =
         test "4 elements"
           $ Assert.equal (Just 4)
           $ third [ 1, 2, 4, 3 ]
+    {-  Move this block comment starting point to enable more tests
       suite "possibleSums" do
         test "[]"
           $ Assert.equal [ 0 ]
