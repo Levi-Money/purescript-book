@@ -43,7 +43,6 @@ main =
         test "[1, 2, 10]"
           $ Assert.equal [ 0, 1, 2, 3, 10, 11, 12, 13 ]
           $ possibleSums [ 1, 2, 10 ]
-    {-  Move this block comment starting point to enable more tests
       suite "filterM" do
         suite "Array Monad" do
           let
@@ -59,6 +58,7 @@ main =
             $ filterM
                 onlyPositives
                 (2 : (-1) : 4 : Nil)
+    {-  Move this block comment starting point to enable more tests
         suite "Maybe Monad" do
           let
             -- This is an impractical filtering function,
