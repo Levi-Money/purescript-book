@@ -24,3 +24,7 @@ filterM fn (Cons xs ys) = fn xs >>= processMV where
     rest = filterM fn ys
     processMV true = pure (\ys' -> Cons xs ys') <*> rest
     processMV false = rest
+
+-- lift2 f (pure a) (pure b) = pure (f a b)
+-- LH: (\m a -> m b -> m c) (m a) (m b)             <=> m c
+-- RH: pure ((\a -> b -> c) a b)        <=> pure c  <=> m c
