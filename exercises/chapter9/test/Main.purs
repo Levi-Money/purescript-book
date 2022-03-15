@@ -65,7 +65,6 @@ main =
       inBarTxt <- readTextFile UTF8 inBar
       outFooBarTxt <- readTextFile UTF8 outFooBar
       Assert.equal (inFooTxt <> inBarTxt) outFooBarTxt
-    {-  Move this block comment starting point to enable more tests
     test "concatenateMany" do
       let
         inFiles = map (\i -> Path.concat [ inDir, "many", "file" <> show i <> ".txt" ]) $ 1 .. 9
@@ -78,6 +77,7 @@ main =
       actualOutTxt <- readTextFile UTF8 outFile
       expectedOutTxt <- readTextFile UTF8 expectedOutFile
       Assert.equal expectedOutTxt actualOutTxt
+    {-  Move this block comment starting point to enable more tests
     suite "countCharacters" do
       test "exists" do
         chars <- countCharacters $ Path.concat [ inDir, "nbChars.txt" ]
