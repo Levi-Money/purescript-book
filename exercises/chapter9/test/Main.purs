@@ -77,7 +77,6 @@ main =
       actualOutTxt <- readTextFile UTF8 outFile
       expectedOutTxt <- readTextFile UTF8 expectedOutFile
       Assert.equal expectedOutTxt actualOutTxt
-    {-  Move this block comment starting point to enable more tests
     suite "countCharacters" do
       test "exists" do
         chars <- countCharacters $ Path.concat [ inDir, "nbChars.txt" ]
@@ -86,6 +85,7 @@ main =
         absolutePath <- realpath $ Path.concat [ inDir ]
         chars <- countCharacters $ Path.concat [ absolutePath, "foof.txt" ]
         Assert.equal (Left ("ENOENT: no such file or directory, open '" <> absolutePath <> "/foof.txt'")) $ lmap message chars
+    {-  Move this block comment starting point to enable more tests
     test "writeGet" do
       let
         outFile = Path.concat [ outDir, "user.txt" ]
