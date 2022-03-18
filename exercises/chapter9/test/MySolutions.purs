@@ -4,12 +4,17 @@ import Prelude
 import Node.Path (FilePath)
 import Node.FS.Aff (readTextFile, writeTextFile)
 import Node.Encoding (Encoding(..))
-import Effect.Aff (Aff, attempt)
+import Effect (Effect)
+import Effect.Aff (Aff, attempt, delay, launchAff_, forkAff, joinFiber)
 import Effect.Exception (Error)
+import Effect.Class.Console as Console
 import Data.Traversable (traverse)
 import Data.Foldable (fold)
 import Data.String.CodeUnits (length)
 import Data.Either (Either(..))
+import Data.Time.Duration (Milliseconds(..))
+import Affjax as AX
+import Affjax.ResponseFormat as ResponseFormat
 
 -- Note to reader: Add your solutions to this file
 
@@ -31,3 +36,9 @@ countCharacters path = do
        Left e -> pure (Left e)
        Right c -> pure ( Right $ length c )
   
+writeGet :: String -> FilePath -> Aff Unit
+writeGet url path = do
+  res <- AX.get ResponseFormat.string url
+  case res of
+            Left err -> pure unit
+            Right resp -> writeTextFile UTF8 path resp.body
