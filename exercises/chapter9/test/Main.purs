@@ -95,7 +95,6 @@ main =
       actualOutTxt <- readTextFile UTF8 outFile
       expectedOutTxt <- readTextFile UTF8 expectedOutFile
       Assert.equal expectedOutTxt actualOutTxt
-    {-  Move this block comment starting point to enable more tests
     test "concatenateManyParallel" do
       let
         inFiles = map (\i -> Path.concat [ inDir, "many", "file" <> show i <> ".txt" ]) $ 1 .. 9
@@ -108,6 +107,7 @@ main =
       actualOutTxt <- readTextFile UTF8 outFile
       expectedOutTxt <- readTextFile UTF8 expectedOutFile
       Assert.equal expectedOutTxt actualOutTxt
+    {-  Move this block comment starting point to enable more tests
     suite "getWithTimeout" do
       test "valid site" do
         let

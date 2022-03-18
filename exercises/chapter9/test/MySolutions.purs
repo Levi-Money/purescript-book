@@ -1,11 +1,12 @@
 module Test.MySolutions where
 
 import Prelude
+import Control.Parallel (parTraverse)
 import Node.Path (FilePath)
 import Node.FS.Aff (readTextFile, writeTextFile)
 import Node.Encoding (Encoding(..))
 import Effect (Effect)
-import Effect.Aff (Aff, attempt, delay, launchAff_, forkAff, joinFiber)
+import Effect.Aff (Aff, attempt)
 import Effect.Exception (Error)
 import Effect.Class.Console as Console
 import Data.Traversable (traverse)
@@ -42,3 +43,9 @@ writeGet url path = do
   case res of
             Left err -> pure unit
             Right resp -> writeTextFile UTF8 path resp.body
+
+concatenateManyParallel :: Array FilePath -> FilePath -> Aff Unit
+concatenateManyParallel xs o = do
+  contents <- parTraverse (readTextFile UTF8) xs
+  writeTextFile UTF8 o $ fold contents
+
