@@ -1,18 +1,17 @@
 module Test.MySolutions where
 
 import Prelude
-import Control.Parallel (parTraverse)
+import Control.Parallel (parTraverse, parSequence)
 import Node.Path (FilePath)
 import Node.FS.Aff (readTextFile, writeTextFile)
 import Node.Encoding (Encoding(..))
-import Effect (Effect)
-import Effect.Aff (Aff, attempt)
-import Effect.Exception (Error)
-import Effect.Class.Console as Console
-import Data.Traversable (traverse)
+import Effect.Aff (Aff, attempt, forkAff, joinFiber, delay, killFiber, try)
+import Effect.Exception (Error, error)
+import Data.Traversable (traverse, sequence)
 import Data.Foldable (fold)
 import Data.String.CodeUnits (length)
-import Data.Either (Either(..))
+import Data.Either (Either(..), hush)
+import Data.Maybe (Maybe(..))
 import Data.Time.Duration (Milliseconds(..))
 import Affjax as AX
 import Affjax.ResponseFormat as ResponseFormat
@@ -49,3 +48,30 @@ concatenateManyParallel xs o = do
   contents <- parTraverse (readTextFile UTF8) xs
   writeTextFile UTF8 o $ fold contents
 
+-- This solution pass the test but have a different behavior
+-- it waits all threads, wich is not what we wanted to
+getWithTimeout :: Number -> String -> Aff (Maybe String)
+getWithTimeout n u = do
+  fReq <- forkAff $ AX.get ResponseFormat.string u 
+  let tError = error "Request Timeout"
+  delay (Milliseconds n) >>= (\_ -> killFiber tError fReq)
+  eErrEff <- try (joinFiber fReq)
+  let body = pure (\r -> r.body) <*> (hush eErrEff >>= hush) 
+  pure body
+
+-- I tried to do a parallel thread running here but
+-- we can't access fDelay from inner do notation
+-- the only way I can see it working is by used of a Effect.Ref
+-- but it's too complicated and not elegant
+-- getWithTimeout :: Number -> String -> Aff (Maybe String)
+-- getWithTimeout n u = do
+--   fReq <- forkAff do
+--      eErrRes <- AX.get ResponseFormat.string u 
+--      killFiber (error "Request Finished") fDelay
+--      pure eErrRes
+--   fDelay <- forkAff do
+--     delay (Milliseconds n)
+--     killFiber (error "Request Timeout" fReq)
+--   eErrEff <- try (parallel fDelay *> parallel fReq)
+--   let body = pure (\r -> r.body) <*> (hush eErrEff >>= hush) 
+--   pure body
