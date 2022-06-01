@@ -4,7 +4,8 @@ You can edit this file as you like.
 -}
 { name = "my-project"
 , dependencies =
-  [ "aff"
+  [ "debug"
+  , "aff"
   , "affjax"
   , "affjax-node"
   , "arrays"
@@ -24,6 +25,7 @@ You can edit this file as you like.
   , "parallel"
   , "prelude"
   , "strings"
+  , "stringutils"
   , "test-unit"
   ]
 , packages = ./packages.dhall

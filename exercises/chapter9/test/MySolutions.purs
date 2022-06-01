@@ -2,14 +2,16 @@ module Test.MySolutions where
 
 import Prelude
 import Control.Parallel (parTraverse, parSequence)
-import Node.Path (FilePath)
-import Node.FS.Aff (readTextFile, writeTextFile)
+import Node.Path (FilePath, dirname, concat)
+import Node.FS.Aff (readTextFile, writeTextFile, exists)
 import Node.Encoding (Encoding(..))
-import Effect.Aff (Aff, attempt, forkAff, joinFiber, delay, killFiber, try)
+import Effect.Aff (Aff, attempt, forkAff, joinFiber, delay, killFiber, try, launchAff)
 import Effect.Exception (Error, error)
 import Data.Traversable (traverse, sequence)
 import Data.Foldable (fold)
+import Data.Array (filter, concat, (:)) as Array
 import Data.String.CodeUnits (length)
+import Data.String.Utils (lines)
 import Data.Either (Either(..), hush)
 import Data.Maybe (Maybe(..))
 import Data.Time.Duration (Milliseconds(..))
@@ -75,3 +77,16 @@ getWithTimeout n u = do
 --   eErrEff <- try (parallel fDelay *> parallel fReq)
 --   let body = pure (\r -> r.body) <*> (hush eErrEff >>= hush) 
 --   pure body
+
+recurseFiles :: FilePath -> Aff (Array FilePath)
+recurseFiles rFilePath = do
+  rFileExists <- exists rFilePath
+  case rFileExists of
+    true  -> do
+             rFileText <- readTextFile UTF8 rFilePath
+             let dir    =     dirname rFilePath
+                 cPaths =     (\p -> concat [dir, p])
+                          <$> Array.filter (\s -> length s > 0) (lines rFileText) 
+             cFilePaths <- parTraverse recurseFiles $ cPaths
+             pure $ Array.concat $ cFilePaths <> [[rFilePath]]
+    false -> pure [rFilePath]
