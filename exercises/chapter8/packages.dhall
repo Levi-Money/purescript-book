@@ -1,6 +1,6 @@
 let upstream =
-      https://github.com/purescript/package-sets/releases/download/psc-0.15.2-20220531/packages.dhall
-        sha256:278d3608439187e51136251ebf12fabda62d41ceb4bec9769312a08b56f853e3
+      https://github.com/purescript/package-sets/releases/download/psc-0.15.2-20220610/packages.dhall
+        sha256:348212b7c79da7d343bed71b48ed164d426f1977f92196babac49bd560b32e75
 
 let overrides =
       { test-unit =
@@ -46,8 +46,7 @@ let additions =
           , "unsafe-reference"
           , "web-html"
           ]
-        , repo =
-            "https://github.com/megamaddu/purescript-react-basic-hooks.git"
+        , repo = "https://github.com/megamaddu/purescript-react-basic-hooks.git"
         , version = "v8.0.0"
         }
       , react-basic-dom =
