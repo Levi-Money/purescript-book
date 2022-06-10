@@ -70,6 +70,43 @@ let additions =
         , repo = "https://github.com/garyb/purescript-indexed-monad.git"
         , version = "master"
         }
+      , optparse =
+        { dependencies =
+          [ "prelude"
+            , "effect"
+              , "exitcodes"
+              , "strings"
+              , "arrays"
+              , "console"
+              , "open-memoize"
+              , "transformers"
+              , "exists"
+              , "node-process"
+              , "free"
+              , "quickcheck"
+              , "aff"
+              , "bifunctors"
+              , "control"
+              , "either"
+              , "enums"
+              , "foldable-traversable"
+              , "gen"
+              , "integers"
+              , "lazy"
+              , "lists"
+              , "maybe"
+              , "newtype"
+              , "node-buffer"
+              , "node-streams"
+              , "nonempty"
+              , "numbers"
+              , "partial"
+              , "tailrec"
+              , "tuples"
+              ]
+              , repo = "https://github.com/f-o-a-m/purescript-optparse.git"
+              , version = "v5.0.0"
+        }
       }
 
 in  upstream // overrides // additions
