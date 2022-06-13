@@ -5,7 +5,7 @@ import Prelude
 import ChapterExamples (Address, Amp(..), Person, Volt(..))
 import Data.Array (filter)
 import Data.Maybe (Maybe(..))
-import Data.Picture (Bounds, Picture, Point, Shape(..), bounds, getCenter, origin, shapeBounds) as Pict
+import Data.Picture (Bounds, Picture, Point, Shape(..), bounds, getCenter, origin, shapeBounds, intersect) as Pict
 import Data.Number (pi)
 
 newtype Watt = Watt Number
@@ -80,5 +80,5 @@ clip picture clipPoint clipW clipH = filter (buildBoundsFilter (Pict.shapeBounds
     buildBoundsFilter clipBounds = \pictShape -> clipBounds <$*> Pict.shapeBounds pictShape
 
 shapeBounds :: ClippedShape -> Pict.Bounds
-shapeBounds (Clipped picture point w h) = Pict.bounds $ clip picture point w h
+shapeBounds (Clipped picture point w h) = Pict.intersect (Pict.bounds picture) (Pict.shapeBounds (Pict.Rectangle point w h))
 shapeBounds (Shape shape) = Pict.shapeBounds shape
