@@ -6,7 +6,7 @@ import ChapterExamples (Address, Amp(..), Person, Volt(..))
 import Data.Array (filter)
 import Data.Maybe (Maybe(..))
 import Data.Picture (Bounds, Picture, Point, Shape(..), bounds, getCenter, origin, shapeBounds) as Pict
-import Math (pi)
+import Data.Number (pi)
 
 newtype Watt = Watt Number
 
