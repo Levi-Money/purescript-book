@@ -3,6 +3,6 @@ package-lock.json
 dist
 .parcel-cache
 .cache
+.psc-ide-port
 /index.html
 /book
-/.psc-ide-port
