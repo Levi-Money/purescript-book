@@ -3,13 +3,14 @@ module Test.MySolutions where
 import Prelude
 
 import Control.Alternative (guard)
+import Data.Foldable (product)
 import Data.Array (filter, foldl, head, last, length, null, sort, tail, (..), (:))
 import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Ord (abs)
 import Data.Path (Path(..), filename, isDirectory, ls, size)
 import Data.String (contains, split)
 import Data.String.Pattern (Pattern(..))
-import Debug (spy)
+import Data.Int (rem)
 import Test.Examples (allFiles)
 
 isEven :: Int -> Boolean
@@ -67,11 +68,12 @@ triples n = do
   pure [ a, b, c ]
 
 primeFactors :: Int -> Array Int
-primeFactors n = do
-  f <- reverse $ factors n
-  fi <- reverse $ f
-  guard $ isPrime fi
-  pure fi
+primeFactors n | n < 2 = []
+primeFactors n         = factorize n 2 [] where
+  factorize :: Int -> Int -> Array Int -> Array Int
+  factorize n' i xs | product xs == n              = xs
+  factorize n' i xs | n' `rem` i == 0 && isPrime i = factorize (n' `div` i) i (i:xs)
+  factorize n' i xs                                = factorize n' (i + 1) xs
 
 allTrue :: Array Boolean -> Boolean
 allTrue = foldl (\cur prev -> cur && prev) true
