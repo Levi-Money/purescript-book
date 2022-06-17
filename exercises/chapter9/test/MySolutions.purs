@@ -3,7 +3,8 @@ module Test.MySolutions where
 import Prelude
 import Control.Parallel (parTraverse, parSequence)
 import Node.Path (FilePath, dirname, concat)
-import Node.FS.Aff (readTextFile, writeTextFile, exists)
+import Node.FS.Aff (readTextFile, writeTextFile, stat)
+import Node.FS.Stats (isFile)
 import Node.Encoding (Encoding(..))
 import Effect.Aff (Aff, attempt, forkAff, joinFiber, delay, killFiber, try, launchAff)
 import Effect.Exception (Error, error)
@@ -80,8 +81,8 @@ getWithTimeout n u = do
 
 recurseFiles :: FilePath -> Aff (Array FilePath)
 recurseFiles rFilePath = do
-  rFileExists <- exists rFilePath
-  case rFileExists of
+  stat <- rFilePath
+  case isFile stat of
     true  -> do
              rFileText <- readTextFile UTF8 rFilePath
              let dir    =     dirname rFilePath
