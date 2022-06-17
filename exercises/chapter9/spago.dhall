@@ -19,6 +19,7 @@ You can edit this file as you like.
   , "functions"
   , "maybe"
   , "node-buffer"
+  , "node-fs"
   , "node-fs-aff"
   , "node-path"
   , "ordered-collections"

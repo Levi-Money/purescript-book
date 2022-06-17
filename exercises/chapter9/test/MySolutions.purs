@@ -82,8 +82,8 @@ getWithTimeout n u = do
 
 recurseFiles :: FilePath -> Aff (Array FilePath)
 recurseFiles rFilePath = do
-  stat <- rFilePath
-  case isFile stat of
+  s <- stat rFilePath
+  case isFile s of
     true  -> do
              rFileText <- readTextFile UTF8 rFilePath
              let dir    =     dirname rFilePath
