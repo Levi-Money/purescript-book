@@ -18,6 +18,7 @@ import Data.Maybe (Maybe(..))
 import Data.Time.Duration (Milliseconds(..))
 import Affjax as AX
 import Affjax.ResponseFormat as ResponseFormat
+import Affjax.Node (driver)
 
 -- Note to reader: Add your solutions to this file
 
@@ -41,7 +42,7 @@ countCharacters path = do
   
 writeGet :: String -> FilePath -> Aff Unit
 writeGet url path = do
-  res <- AX.get ResponseFormat.string url
+  res <- AX.get driver ResponseFormat.string url
   case res of
             Left err -> pure unit
             Right resp -> writeTextFile UTF8 path resp.body
@@ -55,7 +56,7 @@ concatenateManyParallel xs o = do
 -- it waits all threads, wich is not what we wanted to
 getWithTimeout :: Number -> String -> Aff (Maybe String)
 getWithTimeout n u = do
-  fReq <- forkAff $ AX.get ResponseFormat.string u 
+  fReq <- forkAff $ AX.get driver ResponseFormat.string u 
   let tError = error "Request Timeout"
   delay (Milliseconds n) >>= (\_ -> killFiber tError fReq)
   eErrEff <- try (joinFiber fReq)
@@ -69,7 +70,7 @@ getWithTimeout n u = do
 -- getWithTimeout :: Number -> String -> Aff (Maybe String)
 -- getWithTimeout n u = do
 --   fReq <- forkAff do
---      eErrRes <- AX.get ResponseFormat.string u 
+--      eErrRes <- AX.get driver ResponseFormat.string u 
 --      killFiber (error "Request Finished") fDelay
 --      pure eErrRes
 --   fDelay <- forkAff do

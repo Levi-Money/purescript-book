@@ -4,14 +4,14 @@ You can edit this file as you like.
 -}
 { name = "my-project"
 , dependencies =
-  [ "debug"
-  , "aff"
+  [ "aff"
   , "affjax"
   , "affjax-node"
   , "arrays"
   , "bifunctors"
   , "console"
   , "datetime"
+  , "debug"
   , "effect"
   , "either"
   , "exceptions"
