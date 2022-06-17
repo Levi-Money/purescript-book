@@ -1,6 +1,5 @@
 module Test.ParallelFetch where
 
--- ANCHOR: fetchPar
 import Prelude
 
 import Control.Parallel (parTraverse)
@@ -16,4 +15,3 @@ fetchPar =
       urls = map (\n -> "https://reqres.in/api/users/" <> show n) [ 1, 2 ]
     res <- parTraverse getUrl urls
     logShow res
--- ANCHOR_END: fetchPar

@@ -1,6 +1,5 @@
 module Test.ParallelDelay where
 
--- ANCHOR: delays
 import Prelude
 
 import Control.Parallel (parSequence_)
@@ -17,4 +16,3 @@ seqDelay = launchAff_ $ sequence_ delayArray
 
 parDelay :: Effect Unit
 parDelay = launchAff_ $ parSequence_ delayArray
--- ANCHOR_END: delays

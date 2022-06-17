@@ -18,7 +18,6 @@ type Log = Array String
 
 type Parser = StateT String (WriterT Log (ExceptT Errors Identity))
 
--- ANCHOR: split
 split :: Parser String
 split = do
   s <- get
@@ -28,7 +27,6 @@ split = do
     _ -> do
       put (drop 1 s)
       pure (take 1 s)
--- ANCHOR_END: split
 
 eof :: Parser Unit
 eof = do
@@ -38,21 +36,17 @@ eof = do
     "" -> pure unit
     _ -> throwError ["Expected end-of-file"]
 
--- ANCHOR: upper
 upper :: Parser String
 upper = do
   s <- split
   guard $ toUpper s == s
   pure s
--- ANCHOR_END: upper
 
--- ANCHOR: lower
 lower :: Parser String
 lower = do
   s <- split
   guard $ toLower s == s
   pure s
--- ANCHOR_END: lower
 
 runParser :: forall a. Parser a -> String -> Either Errors (Tuple (Tuple a String) Log)
 runParser p = runExcept <<< runWriterT <<< runStateT p

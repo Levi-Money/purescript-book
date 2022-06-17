@@ -1,29 +1,21 @@
 "use strict";
 
-// ANCHOR: square
 export const square = function (n) {
   return n * n;
 };
-// ANCHOR_END: square
 
-// ANCHOR: diagonal
 export const diagonal = function (w) {
   return function (h) {
     return Math.sqrt(w * w + h * h);
   };
 };
-// ANCHOR_END: diagonal
 
-// ANCHOR: diagonal_arrow
 export const diagonalArrow = w => h =>
   Math.sqrt(w * w + h * h);
-// ANCHOR_END: diagonal_arrow
 
-// ANCHOR: diagonal_uncurried
 export const diagonalUncurried = function (w, h) {
   return Math.sqrt(w * w + h * h);
 };
-// ANCHOR_END: diagonal_uncurried
 
 export const cumulativeSums = arr => {
   

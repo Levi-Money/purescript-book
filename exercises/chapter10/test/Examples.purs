@@ -14,35 +14,23 @@ import Effect.Uncurried (EffectFn2)
 
 foreign import square :: Number -> Number
 
--- ANCHOR: diagonal
 foreign import diagonal :: Number -> Number -> Number
--- ANCHOR_END: diagonal
 
--- ANCHOR: diagonal_arrow
 foreign import diagonalArrow :: Number -> Number -> Number
--- ANCHOR_END: diagonal_arrow
 
--- ANCHOR: diagonal_uncurried
 foreign import diagonalUncurried :: Fn2 Number Number Number
--- ANCHOR_END: diagonal_uncurried
 
--- ANCHOR: uncurried_add
 uncurriedAdd :: Fn2 Int Int Int
 uncurriedAdd = mkFn2 \n m -> m + n
--- ANCHOR_END: uncurried_add
 
--- ANCHOR: uncurried_sum
 uncurriedSum :: Int
 uncurriedSum = runFn2 uncurriedAdd 3 10
--- ANCHOR_END: uncurried_sum
 
--- ANCHOR: curried_add
 curriedAdd :: Int -> Int -> Int
 curriedAdd n m = m + n
 
 curriedSum :: Int
 curriedSum = curriedAdd 3 10
--- ANCHOR_END: curried_add
 
 foreign import cumulativeSums :: Array Int -> Array Int
 
@@ -108,24 +96,18 @@ foreign import addComplexBroken :: Complex -> Complex -> Complex
 
 foreign import cumulativeSumsJson :: Array Int -> Json
 
--- ANCHOR: cumulativeSumsDecoded
 cumulativeSumsDecoded :: Array Int -> Either JsonDecodeError (Array Int)
 cumulativeSumsDecoded arr = decodeJson $ cumulativeSumsJson arr
--- ANCHOR_END: cumulativeSumsDecoded
 
 foreign import addComplexJson :: Complex -> Complex -> Json
 
--- ANCHOR: addComplexDecoded
 addComplexDecoded :: Complex -> Complex -> Either JsonDecodeError Complex
 addComplexDecoded a b = decodeJson $ addComplexJson a b
--- ANCHOR_END: addComplexDecoded
 
--- ANCHOR: mapSetFooJson
 foreign import mapSetFooJson :: Json -> Json
 
 mapSetFoo :: Map String Int -> Either JsonDecodeError (Map String Int)
 mapSetFoo = encodeJson >>> mapSetFooJson >>> decodeJson
--- ANCHOR_END: mapSetFooJson
 
 {-
 These versions always point to either the working or broken versions

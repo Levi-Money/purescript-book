@@ -1,6 +1,5 @@
 module Test.Copy where
 
--- ANCHOR: copyFile
 import Prelude
 import Data.Either (Either(..))
 import Effect.Aff (Aff, attempt, message)
@@ -20,6 +19,5 @@ main = do
   case result of
     Left e -> log $ "There was a problem with copyFile: " <> message e
     _ -> pure unit
--- ANCHOR_END: copyFile
 
 -- Main is unused, and is only linked to in text
