@@ -33,7 +33,6 @@ main =
         test "1 0 3" do
           Assert.equal 0.0
             $ runFn3 volumeFn 1.0 0.0 3.0
-    {-  Move this block comment starting point to enable more tests
       suite "Exercise - volumeArrow" do
         test "1 2 3" do
           Assert.equal 6.0
@@ -41,6 +40,7 @@ main =
         test "1 0 3" do
           Assert.equal 0.0
             $ volumeArrow 1.0 0.0 3.0
+    {-  Move this block comment starting point to enable more tests
     suite "Exercise Group - Passing Simple Types" do
       suite "Exercise - cumulativeSumsComplex" do
         test "sequential" do
