@@ -1,5 +1,6 @@
 module Test.MySolutions where
 
 import Prelude
+import Data.Function.Uncurried (Fn3)
 
--- Note to reader: Add your solutions to this file
+foreign import volumeFn :: Fn3 Number Number Number Number
