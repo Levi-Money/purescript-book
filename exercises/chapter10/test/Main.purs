@@ -40,7 +40,6 @@ main =
         test "1 0 3" do
           Assert.equal 0.0
             $ volumeArrow 1.0 0.0 3.0
-    {-  Move this block comment starting point to enable more tests
     suite "Exercise Group - Passing Simple Types" do
       suite "Exercise - cumulativeSumsComplex" do
         test "sequential" do
@@ -54,6 +53,7 @@ main =
                 , { real: 3.0, imag: 4.0 }
                 , { real: 5.0, imag: 6.0 }
                 ]
+    {-  Move this block comment starting point to enable more tests
     suite "Exercise Group - Beyond Simple Types" do
       suite "Exercise - quadraticRoots" do
         let
