@@ -27,3 +27,27 @@ export function cumulativeSumsComplex(arr) {
     { sum: complex(0, 0), sums: [] }
   ).sums;
 }
+
+function rootsOfQuadEq(discriminant, a, b) {
+  return [
+    (-b + Math.sqrt(discriminant)) / (2 * a),
+    (-b - Math.sqrt(discriminant)) / (2 * a),
+  ];
+}
+
+export const quadraticRootsImpl = pair => quad => {
+  const { a, b, c } = quad;
+  const discriminant = b * b - 4 * a * c
+  if (discriminant > 0) {
+    const [r1, r2] = rootsOfQuadEq(discriminant, a, b)
+    return pair(complex(r1, 0))(complex(r2, 0))
+  } else if (discriminant === 0) {
+    const r = -b / (2 * a)
+    const c = complex(r, 0)
+    return pair(c)(c)
+  } else {
+    const real = -b / (2 * a)
+    const imag = Math.sqrt(-discriminant) / (2 * a)
+    return pair(complex(real, imag))(complex(real, -imag))
+  }
+}
