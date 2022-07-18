@@ -51,3 +51,5 @@ export const quadraticRootsImpl = pair => quad => {
     return pair(complex(real, imag))(complex(real, -imag))
   }
 }
+
+export const toMaybeImpl = just => noth => isUndef => val => isUndef(val)?noth:just(val)
