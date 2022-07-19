@@ -60,3 +60,10 @@ export function valuesOfMapJson(json) {
   // should be decoded as a Set by the function type
   return Array.from(map.values());
 }
+
+export function quadraticRootsSetJson(quad) {
+  // jsonDecode knows that uni-dimensional arrays
+  // should be decoded as a Set by the function type
+  const pair = a => b => ([a, b]);
+  return quadraticRootsImpl(pair)(quad); 
+}

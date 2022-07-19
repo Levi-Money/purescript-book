@@ -22,6 +22,7 @@ foreign import cumulativeSumsComplex :: Array Comp -> Array Comp
 foreign import quadraticRootsImpl :: forall a. (a -> a -> Pair a) -> Quadratic -> Pair Complex
 foreign import toMaybeImpl :: forall a. (forall b. b -> Maybe b) -> (forall b. Maybe b) -> (Undefined a -> Boolean) -> Undefined a -> Maybe a
 foreign import valuesOfMapJson :: Json -> Json
+foreign import quadraticRootsSetJson :: Json -> Json
 
 quadraticRoots :: Quadratic -> Pair Complex
 quadraticRoots = quadraticRootsImpl Pair
@@ -31,8 +32,14 @@ toMaybe x = toMaybeImpl Just Nothing isUndefined x
 
 -- maybeHead using toMaybe is better because it uses more purescript side code than javascript side code, and purescript have type signatures, so it's more constrained
 
+passThrough :: forall a b. DecodeJson b => EncodeJson a => (Json -> Json) -> a -> Either JsonDecodeError b
+passThrough fn = decodeJson <<< fn <<< encodeJson
+
 valuesOfMap :: Map String Int -> Either JsonDecodeError (Set Int)
-valuesOfMap = decodeJson <<< valuesOfMapJson <<< encodeJson
+valuesOfMap = passThrough valuesOfMapJson
 
 valuesOfMapGeneric :: forall k v. Ord k => Ord v => EncodeJson k => EncodeJson v => DecodeJson v => Map k v -> Either JsonDecodeError (Set v)
-valuesOfMapGeneric = decodeJson <<< valuesOfMapJson <<< encodeJson
+valuesOfMapGeneric = passThrough valuesOfMapJson
+
+quadraticRootsSet :: Quadratic -> Either JsonDecodeError (Set Complex)
+quadraticRootsSet = passThrough quadraticRootsSetJson

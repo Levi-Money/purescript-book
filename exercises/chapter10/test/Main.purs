@@ -104,7 +104,6 @@ main =
           Assert.equal (Right $ Set.fromFoldable [ "hat", "cat" ])
             $ valuesOfMapGeneric
             $ Map.fromFoldable [ Tuple [ 1, 3, 5 ] "hat", Tuple [ 43, 8 ] "cat" ]
-    {-  Move this block comment starting point to enable more tests
       suite "Exercise - quadraticRootsSet" do
         let
           helper :: String -> Quadratic -> Complex -> Complex -> Free TestF Unit
@@ -128,6 +127,7 @@ main =
           { a: 3.0, b: -6.0, c: 3.0 }
           { real: 1.0, imag: 0.0 }
           { real: 1.0, imag: 0.0 }
+    {-  Move this block comment starting point to enable more tests
       suite "Exercise - quadraticRootsSafe" do
         let
           helper :: String -> Quadratic -> Complex -> Complex -> Free TestF Unit
