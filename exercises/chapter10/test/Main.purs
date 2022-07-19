@@ -95,7 +95,6 @@ main =
           Assert.equal (Right $ Set.fromFoldable [])
             $ valuesOfMap
             $ Map.fromFoldable []
-    {-  Move this block comment starting point to enable more tests
       suite "Exercise - valuesOfMapGeneric" do
         test "String Int" do
           Assert.equal (Right $ Set.fromFoldable [ 1, 2 ])
@@ -105,6 +104,7 @@ main =
           Assert.equal (Right $ Set.fromFoldable [ "hat", "cat" ])
             $ valuesOfMapGeneric
             $ Map.fromFoldable [ Tuple [ 1, 3, 5 ] "hat", Tuple [ 43, 8 ] "cat" ]
+    {-  Move this block comment starting point to enable more tests
       suite "Exercise - quadraticRootsSet" do
         let
           helper :: String -> Quadratic -> Complex -> Complex -> Free TestF Unit

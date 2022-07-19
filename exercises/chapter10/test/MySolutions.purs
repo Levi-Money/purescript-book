@@ -8,8 +8,8 @@ import Data.Either (Either)
 import Data.Map (Map)
 import Data.Set (Set)
 import Data.Argonaut.Core (Json)
-import Data.Argonaut.Decode (decodeJson)
-import Data.Argonaut.Encode (encodeJson)
+import Data.Argonaut.Decode (class DecodeJson, decodeJson)
+import Data.Argonaut.Encode (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode.Error (JsonDecodeError)
 import Test.Examples (Quadratic, Complex, Undefined, isUndefined)
 
@@ -33,3 +33,6 @@ toMaybe x = toMaybeImpl Just Nothing isUndefined x
 
 valuesOfMap :: Map String Int -> Either JsonDecodeError (Set Int)
 valuesOfMap = decodeJson <<< valuesOfMapJson <<< encodeJson
+
+valuesOfMapGeneric :: forall k v. Ord k => Ord v => EncodeJson k => EncodeJson v => DecodeJson v => Map k v -> Either JsonDecodeError (Set v)
+valuesOfMapGeneric = decodeJson <<< valuesOfMapJson <<< encodeJson
