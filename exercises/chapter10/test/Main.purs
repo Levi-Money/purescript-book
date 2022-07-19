@@ -85,7 +85,6 @@ main =
         test "Just" do
           Assert.equal (Just 1)
             $ toMaybe $ undefinedHead [1]
-    {-  Move this block comment starting point to enable more tests
     suite "Exercise Group - JSON" do
       suite "Exercise - valuesOfMap" do
         test "Items" do
@@ -96,6 +95,7 @@ main =
           Assert.equal (Right $ Set.fromFoldable [])
             $ valuesOfMap
             $ Map.fromFoldable []
+    {-  Move this block comment starting point to enable more tests
       suite "Exercise - valuesOfMapGeneric" do
         test "String Int" do
           Assert.equal (Right $ Set.fromFoldable [ 1, 2 ])

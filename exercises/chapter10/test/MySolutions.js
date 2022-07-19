@@ -53,3 +53,10 @@ export const quadraticRootsImpl = pair => quad => {
 }
 
 export const toMaybeImpl = just => noth => isUndef => val => isUndef(val)?noth:just(val)
+
+export function valuesOfMapJson(json) {
+  const map = new Map(json);
+  // jsonDecode knows that uni-dimensional arrays
+  // should be decoded as a Set by the function type
+  return Array.from(map.values());
+}
