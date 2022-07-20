@@ -2,13 +2,15 @@ module Test.MySolutions where
 
 import Prelude
 import Data.Function.Uncurried (Fn3)
-import Data.Pair (Pair (..))
+import Data.Pair (Pair (..)) as NativePair
 import Data.Maybe (Maybe (..))
 import Data.Either (Either)
 import Data.Map (Map)
 import Data.Set (Set)
+import Data.Tuple (Tuple (..))
 import Data.Argonaut.Core (Json)
 import Data.Argonaut.Decode (class DecodeJson, decodeJson)
+import Data.Argonaut.Decode.Decoders (decodeTuple)
 import Data.Argonaut.Encode (class EncodeJson, encodeJson)
 import Data.Argonaut.Decode.Error (JsonDecodeError)
 import Test.Examples (Quadratic, Complex, Undefined, isUndefined)
@@ -16,16 +18,27 @@ import Test.Examples (Quadratic, Complex, Undefined, isUndefined)
 type Comp = { real :: Number
             , imag :: Number }
 
+newtype Pair a = Pair (NativePair.Pair a)
+
+toNativePair :: forall a. Pair a  -> NativePair.Pair a
+toNativePair (Pair (NativePair.Pair x y)) = NativePair.Pair x y
+
+instance DecodeJson a => DecodeJson (Pair a) where
+  decodeJson :: Json -> Either JsonDecodeError (Pair a)
+  decodeJson j = pure toPair <*> decodeTuple decodeJson decodeJson j where
+        toPair :: Tuple a a -> Pair a
+        toPair (Tuple x y) = Pair (NativePair.Pair x y)
+
 foreign import volumeFn :: Fn3 Number Number Number Number
 foreign import volumeArrow :: Number -> Number -> Number -> Number
 foreign import cumulativeSumsComplex :: Array Comp -> Array Comp
-foreign import quadraticRootsImpl :: forall a. (a -> a -> Pair a) -> Quadratic -> Pair Complex
+foreign import quadraticRootsImpl :: forall a. (a -> a -> NativePair.Pair a) -> Quadratic -> NativePair.Pair Complex
 foreign import toMaybeImpl :: forall a. (forall b. b -> Maybe b) -> (forall b. Maybe b) -> (Undefined a -> Boolean) -> Undefined a -> Maybe a
 foreign import valuesOfMapJson :: Json -> Json
 foreign import quadraticRootsSetJson :: Json -> Json
 
-quadraticRoots :: Quadratic -> Pair Complex
-quadraticRoots = quadraticRootsImpl Pair
+quadraticRoots :: Quadratic -> NativePair.Pair Complex
+quadraticRoots = quadraticRootsImpl NativePair.Pair
 
 toMaybe :: forall a. Undefined a -> Maybe a
 toMaybe x = toMaybeImpl Just Nothing isUndefined x
@@ -43,3 +56,7 @@ valuesOfMapGeneric = passThrough valuesOfMapJson
 
 quadraticRootsSet :: Quadratic -> Either JsonDecodeError (Set Complex)
 quadraticRootsSet = passThrough quadraticRootsSetJson
+
+-- using the same FFI because sets of 2 and tuples have same rep on json
+quadraticRootsSafe :: Quadratic -> Either JsonDecodeError (NativePair.Pair Complex)
+quadraticRootsSafe q = pure toNativePair <*> passThrough quadraticRootsSetJson q
