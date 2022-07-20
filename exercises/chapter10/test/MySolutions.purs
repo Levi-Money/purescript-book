@@ -2,13 +2,15 @@ module Test.MySolutions where
 
 import Prelude
 import Data.Function.Uncurried (Fn3)
+import Data.Bifunctor (lmap)
 import Data.Pair (Pair (..)) as NativePair
 import Data.Maybe (Maybe (..))
-import Data.Either (Either)
+import Data.Either (Either (..))
 import Data.Map (Map)
 import Data.Set (Set)
 import Data.Tuple (Tuple (..))
 import Data.Argonaut.Core (Json)
+import Data.Argonaut.Parser (jsonParser)
 import Data.Argonaut.Decode (class DecodeJson, decodeJson)
 import Data.Argonaut.Decode.Decoders (decodeTuple)
 import Data.Argonaut.Encode (class EncodeJson, encodeJson)
@@ -25,7 +27,7 @@ toNativePair (Pair (NativePair.Pair x y)) = NativePair.Pair x y
 
 instance DecodeJson a => DecodeJson (Pair a) where
   decodeJson :: Json -> Either JsonDecodeError (Pair a)
-  decodeJson j = pure toPair <*> decodeTuple decodeJson decodeJson j where
+  decodeJson j = toPair <$> decodeTuple decodeJson decodeJson j where
         toPair :: Tuple a a -> Pair a
         toPair (Tuple x y) = Pair (NativePair.Pair x y)
 
@@ -59,4 +61,12 @@ quadraticRootsSet = passThrough quadraticRootsSetJson
 
 -- using the same FFI because sets of 2 and tuples have same rep on json
 quadraticRootsSafe :: Quadratic -> Either JsonDecodeError (NativePair.Pair Complex)
-quadraticRootsSafe q = pure toNativePair <*> passThrough quadraticRootsSetJson q
+quadraticRootsSafe q = toNativePair <$> passThrough quadraticRootsSetJson q
+
+replaceLeft :: forall a b c. c -> Either a b -> Either c b
+replaceLeft = lmap <<< const
+
+parseAndDecodeArray2D :: String -> Either String (Array (Array Int))
+parseAndDecodeArray2D s = do
+  json <- jsonParser s
+  replaceLeft s $ decodeJson json

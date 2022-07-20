@@ -151,13 +151,13 @@ main =
           { a: 3.0, b: -6.0, c: 3.0 }
           { real: 1.0, imag: 0.0 }
           { real: 1.0, imag: 0.0 }
-    {-  Move this block comment starting point to enable more tests
       test "Exercise - parseAndDecodeArray2D" do
         let
           arr = [ [ 1, 2, 3 ], [ 4, 5 ], [ 6 ] ]
         Assert.equal (Right arr)
           $ parseAndDecodeArray2D
           $ show arr -- the correct JSON string happens to also be produced by show
+    {-  Move this block comment starting point to enable more tests
       test "Exercise - encode decode Tree" do
         let
           tree = Branch (Leaf 1) (Branch (Leaf 2) (Leaf 3))
