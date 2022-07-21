@@ -1,6 +1,7 @@
 module Test.MySolutions where
 
 import Prelude
+import Control.Alt ((<|>))
 import Data.Generic.Rep (class Generic)
 import Data.Show.Generic (genericShow)
 import Data.Function.Uncurried (Fn3)
@@ -8,6 +9,7 @@ import Data.Bifunctor (lmap)
 import Data.Pair (Pair (..)) as NativePair
 import Data.Maybe (Maybe (..))
 import Data.Either (Either (..))
+import Data.Int (trunc)
 import Data.Map (Map)
 import Data.Set (Set)
 import Data.Tuple (Tuple (..))
@@ -15,10 +17,11 @@ import Data.Argonaut.Core (Json)
 import Data.Argonaut.Parser (jsonParser)
 import Data.Argonaut.Decode (class DecodeJson, decodeJson)
 import Data.Argonaut.Decode.Generic (genericDecodeJson)
-import Data.Argonaut.Decode.Decoders (decodeTuple)
+import Data.Argonaut.Decode.Decoders (decodeTuple, decodeInt, decodeNumber, decodeString)
+import Data.Argonaut.Decode.Error (JsonDecodeError)
 import Data.Argonaut.Encode (class EncodeJson, encodeJson)
 import Data.Argonaut.Encode.Generic (genericEncodeJson)
-import Data.Argonaut.Decode.Error (JsonDecodeError)
+import Data.Argonaut.Encode.Encoders (encodeInt, encodeString)
 import Test.Examples (Quadratic, Complex, Undefined, isUndefined)
 
 type Comp = { real :: Number
@@ -85,3 +88,16 @@ instance DecodeJson a => DecodeJson (Tree a) where
   decodeJson c = genericDecodeJson c
 instance EncodeJson a => EncodeJson (Tree a) where
   encodeJson c = genericEncodeJson c
+
+data IntOrString = IntOrString_Int Int | IntOrString_String String
+derive instance Eq IntOrString
+derive instance Generic IntOrString _
+instance Show IntOrString where
+  show = genericShow
+instance DecodeJson IntOrString where
+  decodeJson j =     (IntOrString_Int <$> decodeJson j)
+                 <|> (IntOrString_String <$> decodeJson j)
+                 <|> genericDecodeJson j
+instance EncodeJson IntOrString where
+  encodeJson (IntOrString_Int i)    = encodeJson i
+  encodeJson (IntOrString_String s) = encodeJson s
