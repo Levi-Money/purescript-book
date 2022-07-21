@@ -157,13 +157,13 @@ main =
         Assert.equal (Right arr)
           $ parseAndDecodeArray2D
           $ show arr -- the correct JSON string happens to also be produced by show
-    {-  Move this block comment starting point to enable more tests
       test "Exercise - encode decode Tree" do
         let
           tree = Branch (Leaf 1) (Branch (Leaf 2) (Leaf 3))
         Assert.equal (Right tree)
           $ decodeJson
           $ encodeJson tree
+    {-  Move this block comment starting point to enable more tests
       suite "Exercise - IntOrString" do
         test "IoS to IoS Int" do
           let

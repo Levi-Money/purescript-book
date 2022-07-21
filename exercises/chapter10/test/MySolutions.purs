@@ -1,6 +1,8 @@
 module Test.MySolutions where
 
 import Prelude
+import Data.Generic.Rep (class Generic)
+import Data.Show.Generic (genericShow)
 import Data.Function.Uncurried (Fn3)
 import Data.Bifunctor (lmap)
 import Data.Pair (Pair (..)) as NativePair
@@ -12,8 +14,10 @@ import Data.Tuple (Tuple (..))
 import Data.Argonaut.Core (Json)
 import Data.Argonaut.Parser (jsonParser)
 import Data.Argonaut.Decode (class DecodeJson, decodeJson)
+import Data.Argonaut.Decode.Generic (genericDecodeJson)
 import Data.Argonaut.Decode.Decoders (decodeTuple)
 import Data.Argonaut.Encode (class EncodeJson, encodeJson)
+import Data.Argonaut.Encode.Generic (genericEncodeJson)
 import Data.Argonaut.Decode.Error (JsonDecodeError)
 import Test.Examples (Quadratic, Complex, Undefined, isUndefined)
 
@@ -70,3 +74,14 @@ parseAndDecodeArray2D :: String -> Either String (Array (Array Int))
 parseAndDecodeArray2D s = do
   json <- jsonParser s
   replaceLeft s $ decodeJson json
+
+data Tree a = Leaf a | Branch (Tree a) (Tree a)
+
+derive instance Eq a => Eq (Tree a)
+derive instance Generic (Tree a) _
+instance Show a => Show (Tree a) where
+  show c = genericShow c
+instance DecodeJson a => DecodeJson (Tree a) where
+  decodeJson c = genericDecodeJson c
+instance EncodeJson a => EncodeJson (Tree a) where
+  encodeJson c = genericEncodeJson c
