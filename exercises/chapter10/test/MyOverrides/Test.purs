@@ -11,6 +11,7 @@ import Test.Unit.Assert as Assert
 import Test.Unit.Main (runTest)
 import Effect.Storage (getItem, setItem)
 import Test.MyOverrides.JSDOM (createJSDOM, setGlobalWindow)
+import Test.MyOverrides.Storage (removeItem)
 
 foreign import isNull :: forall a. a -> Boolean
 
@@ -23,5 +24,6 @@ runMyOverrides = suite "MyOverrides - removeItem" do
            dom <- createJSDOM {url:  "http://localhost"}
            setGlobalWindow dom
            setItem k v
+           removeItem k
            getItem k
         Assert.assert "value is not null" $ isNull d
