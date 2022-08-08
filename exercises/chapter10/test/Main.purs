@@ -20,11 +20,13 @@ import Test.URI (_encodeURIComponent)
 import Test.Unit (TestF, suite, test)
 import Test.Unit.Assert as Assert
 import Test.Unit.Main (runTest)
+import Test.MyOverrides.Test (runMyOverrides)
 
 main :: Effect Unit
 main =
   runTest do
     runChapterExamples
+    runMyOverrides
     suite "Exercise Group - Calling JavaScript" do
       suite "Exercise - volumeFn" do
         test "1 2 3" do
