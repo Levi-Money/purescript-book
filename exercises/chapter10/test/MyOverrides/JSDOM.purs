@@ -9,10 +9,10 @@ import Data.Argonaut.Encode (class EncodeJson, encodeJson)
 import Data.Argonaut.Encode.Generic (genericEncodeJson)
 
 foreign import data Dom :: Type
-foreign import createJSDOMImpl :: Json -> Effect Dom
+foreign import createJSDOMImpl :: String -> Json -> Effect Dom
 foreign import setGlobalWindow :: Dom -> Effect Unit
 
 type DomOptions = { url :: String }
 
-createJSDOM :: DomOptions -> Effect Dom
-createJSDOM = createJSDOMImpl <<< encodeJson
+createJSDOM :: String -> DomOptions -> Effect Dom
+createJSDOM s o = createJSDOMImpl s $ encodeJson o

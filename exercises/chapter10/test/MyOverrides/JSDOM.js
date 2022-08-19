@@ -1,8 +1,6 @@
 import { JSDOM } from 'jsdom';
 
-export function createJSDOMImpl(options) {
-  return () => new JSDOM(``, options);
-}
+export const createJSDOMImpl = tmpl => options => () => new JSDOM(tmpl, options)
 
 export function setGlobalWindow(dom) {
   return () => {
