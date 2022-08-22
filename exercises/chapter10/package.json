@@ -8,8 +8,8 @@
   "license": "Creative,Commons,Attribution-NonCommercial-ShareAlike,4.0,International,License",
   "dependencies": {
     "jsdom": "^20.0.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "process": "^0.11.10"

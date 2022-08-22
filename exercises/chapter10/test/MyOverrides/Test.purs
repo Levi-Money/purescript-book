@@ -75,7 +75,7 @@ runMyOverrides = suite "MyOverrides" do
            act clickReset
            -- it seems that the react component is not being re-rendered with JSDOM, there is not so much we can do here without going deep on react internals.
            -- even tried this without luck:
-           -- delay (Milliseconds 15000.0)
+        -- delay (Milliseconds 1000.0)
         d <- liftEffect $ do
            w <- window
            d <- toDocument <$> document w
