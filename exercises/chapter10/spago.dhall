@@ -30,6 +30,7 @@ You can edit this file as you like.
   , "react-basic"
   , "react-basic-dom"
   , "react-basic-hooks"
+  , "refs"
   , "strings"
   , "test-unit"
   , "transformers"

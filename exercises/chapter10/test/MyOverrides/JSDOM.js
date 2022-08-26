@@ -4,6 +4,6 @@ export const createJSDOMImpl = tmpl => options => () => new JSDOM(tmpl, options)
 
 export function setGlobalWindow(dom) {
   return () => {
-    global.window = dom.window;
+    globalThis.window = dom.window;
   }
 }

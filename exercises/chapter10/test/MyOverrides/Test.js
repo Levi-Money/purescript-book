@@ -2,10 +2,13 @@ import ReactUtils from 'react-dom/test-utils'
 
 export function isNull(v) { return v === null; }
 export function act(cb) {
-  return function () {
+  return function() {
     window.__DEV__ = true
     ReactUtils.act(() => {
       cb();
     });
   }
+}
+export const mockWindowInstanceProperty = p => v => () => {
+  window[p] = v
 }

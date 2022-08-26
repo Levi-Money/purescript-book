@@ -2,6 +2,7 @@ module Test.MyOverrides where
 
 import Prelude
 import Control.Monad.Error.Class (class MonadThrow, liftMaybe)
+import Control.Alternative (guard)
 import Effect (Effect)
 import Effect.Storage (getItem)
 import Effect.Exception (Error, error)
@@ -19,6 +20,7 @@ import Web.HTML (window)
 import Web.HTML.Window (document)
 import Main (mkAddressBookApp, processItem)
 import Test.MyOverrides.Storage (removeItem)
+import Test.MyOverrides.Effect.Alert (confirm)
 
 mkOverrideApp :: Person -> Effect (R.ReactComponent (Record ()))
 mkOverrideApp initialPerson = do
@@ -26,13 +28,15 @@ mkOverrideApp initialPerson = do
   incReducer <- R.mkReducer (\s _ -> s + 1)
   R.reactComponent "OverrideApp" \_ -> R.do
     (Tuple st inc) <- R.useReducer 0 incReducer
-    let reset = removeItem "person" *> inc unit
+    let resetText = "Are you sure you want to reset the address book?"
+        reset true = removeItem "person" *> inc unit
+        reset _ = pure unit
         addrEl = R.element addr { initialPerson }
         resetButton = D.label
           { className: "form-group row col-form-label"
           , children: [ D.button { id: "reset"
                                  , className: "btn-secondary btn"
-                                 , onClick: handler_ reset
+                                 , onClick: handler_ $ confirm resetText >>= reset
                                  , children: [ D.text "Reset" ] } ]
       }
     pure $ D.div { children: [ R.keyed (show st) addrEl, resetButton ] }
