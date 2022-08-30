@@ -8,6 +8,7 @@ import Control.Monad.Except (runExceptT)
 import Control.Monad.RWS (RWSResult(..), runRWS)
 import Control.Monad.State (runStateT)
 import Control.Monad.Writer (runWriterT, execWriter)
+import Control.Monad.Reader (runReader)
 import Data.Either (Either(..))
 import Data.GameEnvironment (GameEnvironment(..))
 import Data.GameItem (GameItem(..))
@@ -42,9 +43,13 @@ main =
         runTestParens false ")"
         runTestParens false "(()()"
         runTestParens false ")("
-    {-  Move this block comment starting point to enable more tests
     suite "Exercises Group - The Reader Monad" do
       suite "indents" do
+         test "should render line" do
+          Assert.equal "" $ runReader (line "f") 0
+          Assert.equal "f" $ runReader (line "f") 1
+          Assert.equal "ffff" $ runReader (line "ff") 2
+    {-  Move this block comment starting point to enable more tests
         let
           expectedText =
             "Here is some indented text:\n\

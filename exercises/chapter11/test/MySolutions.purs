@@ -1,9 +1,11 @@
 module Test.MySolutions where
 
-import Prelude (Unit, ($))
+import Prelude (Unit, ($), (<$>))
 import Control.Monad.State (State, execState, modify)
+import Control.Monad.Reader (Reader, ask)
 import Data.String.CodeUnits (toCharArray)
 import Data.Foldable (traverse_)
+import Data.Monoid (power)
 
 -- Note to reader : Add your solutions to this file
 
@@ -25,3 +27,10 @@ testParens s = toBool $ execState (parse $ toCharArray s) Root where
   eval _ n = n
   parse :: Array Char -> State Parens Unit
   parse = traverse_ \c -> modify \n -> eval c n
+
+type Level = Int
+type Doc = Reader Level String
+
+line :: String -> Doc
+line s = power s <$> ask
+
