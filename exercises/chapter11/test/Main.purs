@@ -71,7 +71,6 @@ main =
                   , indent $ line "I am even more indented"
                   ]
                 ]
-    {-  Move this block comment starting point to enable more tests
     suite "Exercises Group - The Writer Monad" do
       suite "sumArrayWriter" do
         test "should sum arrays" do
@@ -80,6 +79,7 @@ main =
               sumArrayWriter [1, 2, 3]
               sumArrayWriter [4, 5]
               sumArrayWriter [6]
+    {-  Move this block comment starting point to enable more tests
       suite "collatz" do
         let
           expected_11 =

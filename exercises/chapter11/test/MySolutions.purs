@@ -3,9 +3,11 @@ module Test.MySolutions where
 import Prelude (Unit, ($), (+), bind, pure)
 import Control.Monad.State (State, execState, modify)
 import Control.Monad.Reader (Reader, ask, local, runReader)
+import Control.Monad.Writer (Writer, tell)
 import Data.String.CodeUnits (toCharArray)
 import Data.Foldable (traverse_)
 import Data.Monoid (power, (<>))
+import Data.Monoid.Additive (Additive (..))
 import Data.Traversable (sequence)
 import Data.String (joinWith)
 
@@ -48,3 +50,6 @@ cat xs =  do
 
 render :: Doc -> String
 render d = runReader d 0
+
+sumArrayWriter :: Array Int -> Writer (Additive Int) Unit
+sumArrayWriter = traverse_ \n -> tell (Additive n)
