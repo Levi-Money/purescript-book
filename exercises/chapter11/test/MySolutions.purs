@@ -1,15 +1,18 @@
 module Test.MySolutions where
 
-import Prelude (Unit, ($), (+), bind, pure)
+import Prelude
 import Control.Monad.State (State, execState, modify)
 import Control.Monad.Reader (Reader, ask, local, runReader)
-import Control.Monad.Writer (Writer, tell)
+import Control.Monad.Writer (Writer, tell, runWriter)
 import Data.String.CodeUnits (toCharArray)
 import Data.Foldable (traverse_)
-import Data.Monoid (power, (<>))
+import Data.Monoid (power)
 import Data.Monoid.Additive (Additive (..))
 import Data.Traversable (sequence)
 import Data.String (joinWith)
+import Data.Tuple (Tuple (..), uncurry)
+import Data.Int (even)
+import Data.Array (length)
 
 -- Note to reader : Add your solutions to this file
 
@@ -53,3 +56,13 @@ render d = runReader d 0
 
 sumArrayWriter :: Array Int -> Writer (Additive Int) Unit
 sumArrayWriter = traverse_ \n -> tell (Additive n)
+
+collatz :: Int -> Tuple Int (Array Int)
+collatz n = uncurry format $ runWriter $ collatz' n where
+  format _ xs = Tuple (length xs - 1) xs
+  collatz' x | x > 1 = do
+      tell [x]
+      let y = if even x then x / 2 else (3 * x) + 1
+      y' <- collatz' y
+      pure y'
+  collatz' x = tell [x] *> pure x 

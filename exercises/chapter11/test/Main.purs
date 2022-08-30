@@ -79,7 +79,6 @@ main =
               sumArrayWriter [1, 2, 3]
               sumArrayWriter [4, 5]
               sumArrayWriter [6]
-    {-  Move this block comment starting point to enable more tests
       suite "collatz" do
         let
           expected_11 =
@@ -92,6 +91,7 @@ main =
         test "c = 15" do
           Assert.equal expected_15
             $ collatz 15
+    {-  Move this block comment starting point to enable more tests
     suite "Exercises Group - Monad Transformers" do
       suite "safeDivide" do
         test "should fail when dividing by zero" do
