@@ -47,31 +47,31 @@ main =
       suite "indents" do
          test "should render line" do
             Assert.equal "f" $ runReader (line "f") 0
-            Assert.equal " f" $ runReader (line "f") 1
-            Assert.equal "  f" $ runReader (line "f") 2
+            Assert.equal "  f" $ runReader (line "f") 1
+            Assert.equal "    f" $ runReader (line "f") 2
          test "should render indented" do
-            Assert.equal " f" $ runReader (indent $ line "f") 0 
-            Assert.equal "  f" $ runReader (indent $ line "f") 1
+            Assert.equal "  f" $ runReader (indent $ line "f") 0 
+            Assert.equal "    f" $ runReader (indent $ line "f") 1
          test "should render concatenated" do
             Assert.equal "a" $ runReader (cat [line "a"]) 0
             Assert.equal "a\nb" $ runReader (cat [line "a", line"b"]) 0
-    {-  Move this block comment starting point to enable more tests
-        let
-          expectedText =
-            "Here is some indented text:\n\
-            \  I am indented\n\
-            \  So am I\n\
-            \    I am even more indented"
-        test "should render with indentations" do
-          Assert.equal expectedText
-            $ render $ cat
-              [ line "Here is some indented text:"
-              , indent $ cat
-                [ line "I am indented"
-                , line "So am I"
-                , indent $ line "I am even more indented"
+         test "should render with indentations" do
+            let
+              expectedText =
+                "Here is some indented text:\n\
+                \  I am indented\n\
+                \  So am I\n\
+                \    I am even more indented"
+            Assert.equal expectedText
+              $ render $ cat
+                [ line "Here is some indented text:"
+                , indent $ cat
+                  [ line "I am indented"
+                  , line "So am I"
+                  , indent $ line "I am even more indented"
+                  ]
                 ]
-              ]
+    {-  Move this block comment starting point to enable more tests
     suite "Exercises Group - The Writer Monad" do
       suite "sumArrayWriter" do
         test "should sum arrays" do

@@ -2,7 +2,7 @@ module Test.MySolutions where
 
 import Prelude (Unit, ($), (+), bind, pure)
 import Control.Monad.State (State, execState, modify)
-import Control.Monad.Reader (Reader, ask, local)
+import Control.Monad.Reader (Reader, ask, local, runReader)
 import Data.String.CodeUnits (toCharArray)
 import Data.Foldable (traverse_)
 import Data.Monoid (power, (<>))
@@ -36,7 +36,7 @@ type Doc = Reader Level String
 line :: String -> Doc
 line s = do
   n <- ask
-  pure $ (power " " n) <> s
+  pure $ (power "  " n) <> s
 
 indent :: Doc -> Doc
 indent = local (\n -> n + 1)
@@ -45,3 +45,6 @@ cat :: Array Doc -> Doc
 cat xs =  do
   xs' <- sequence xs
   pure $ joinWith "\n" xs'
+
+render :: Doc -> String
+render d = runReader d 0
