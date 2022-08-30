@@ -1,11 +1,13 @@
 module Test.MySolutions where
 
-import Prelude (Unit, ($), (<$>), (+), bind, pure)
+import Prelude (Unit, ($), (+), bind, pure)
 import Control.Monad.State (State, execState, modify)
 import Control.Monad.Reader (Reader, ask, local)
 import Data.String.CodeUnits (toCharArray)
 import Data.Foldable (traverse_)
 import Data.Monoid (power, (<>))
+import Data.Traversable (sequence)
+import Data.String (joinWith)
 
 -- Note to reader : Add your solutions to this file
 
@@ -38,3 +40,8 @@ line s = do
 
 indent :: Doc -> Doc
 indent = local (\n -> n + 1)
+
+cat :: Array Doc -> Doc
+cat xs =  do
+  xs' <- sequence xs
+  pure $ joinWith "\n" xs'

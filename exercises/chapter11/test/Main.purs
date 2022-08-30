@@ -52,6 +52,9 @@ main =
          test "should render indented" do
             Assert.equal " f" $ runReader (indent $ line "f") 0 
             Assert.equal "  f" $ runReader (indent $ line "f") 1
+         test "should render concatenated" do
+            Assert.equal "a" $ runReader (cat [line "a"]) 0
+            Assert.equal "a\nb" $ runReader (cat [line "a", line"b"]) 0
     {-  Move this block comment starting point to enable more tests
         let
           expectedText =
