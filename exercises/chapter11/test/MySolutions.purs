@@ -1,11 +1,11 @@
 module Test.MySolutions where
 
-import Prelude (Unit, ($), (<$>))
+import Prelude (Unit, ($), (<$>), (+), bind, pure)
 import Control.Monad.State (State, execState, modify)
-import Control.Monad.Reader (Reader, ask)
+import Control.Monad.Reader (Reader, ask, local)
 import Data.String.CodeUnits (toCharArray)
 import Data.Foldable (traverse_)
-import Data.Monoid (power)
+import Data.Monoid (power, (<>))
 
 -- Note to reader : Add your solutions to this file
 
@@ -32,5 +32,9 @@ type Level = Int
 type Doc = Reader Level String
 
 line :: String -> Doc
-line s = power s <$> ask
+line s = do
+  n <- ask
+  pure $ (power " " n) <> s
 
+indent :: Doc -> Doc
+indent = local (\n -> n + 1)

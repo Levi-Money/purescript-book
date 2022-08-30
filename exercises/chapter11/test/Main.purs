@@ -1,6 +1,6 @@
 module Test.Main where
 
-import Prelude (Unit, discard, negate, ($), (*>), (<>), (==))
+import Prelude (Unit, discard, negate, ($), (*>), (<>), (==), bind)
 import Test.MySolutions
 import Game
 
@@ -8,7 +8,7 @@ import Control.Monad.Except (runExceptT)
 import Control.Monad.RWS (RWSResult(..), runRWS)
 import Control.Monad.State (runStateT)
 import Control.Monad.Writer (runWriterT, execWriter)
-import Control.Monad.Reader (runReader)
+import Control.Monad.Reader (runReader, lift)
 import Data.Either (Either(..))
 import Data.GameEnvironment (GameEnvironment(..))
 import Data.GameItem (GameItem(..))
@@ -46,9 +46,12 @@ main =
     suite "Exercises Group - The Reader Monad" do
       suite "indents" do
          test "should render line" do
-          Assert.equal "" $ runReader (line "f") 0
-          Assert.equal "f" $ runReader (line "f") 1
-          Assert.equal "ffff" $ runReader (line "ff") 2
+            Assert.equal "f" $ runReader (line "f") 0
+            Assert.equal " f" $ runReader (line "f") 1
+            Assert.equal "  f" $ runReader (line "f") 2
+         test "should render indented" do
+            Assert.equal " f" $ runReader (indent $ line "f") 0 
+            Assert.equal "  f" $ runReader (indent $ line "f") 1
     {-  Move this block comment starting point to enable more tests
         let
           expectedText =
