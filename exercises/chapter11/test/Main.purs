@@ -98,7 +98,6 @@ main =
             $ unwrap $ runExceptT $ safeDivide 5 0
         test "should successfully divide for any other input" do
           Assert.equal (Right 2) $ unwrap $ runExceptT $ safeDivide 6 3
-    {-  Move this block comment starting point to enable more tests
       suite "parser" do
         let
           runParser p s = unwrap $ runExceptT $ runWriterT $ runStateT p s
@@ -108,6 +107,7 @@ main =
         test "should fail if string could not be parsed" do
           Assert.equal (Left ["Could not parse"])
             $ runParser (string "abc") "foobar"
+    {-  Move this block comment starting point to enable more tests
       suite "indents with ReaderT and WriterT" do
         let
           expectedText =

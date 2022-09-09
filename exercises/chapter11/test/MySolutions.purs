@@ -5,16 +5,20 @@ import Control.Monad.State (State, execState, modify)
 import Control.Monad.Reader (Reader, ask, local, runReader)
 import Control.Monad.Writer (Writer, tell, runWriter)
 import Control.Monad.Except.Trans (ExceptT, runExceptT, throwError)
-import Data.String.CodeUnits (toCharArray)
+import Control.Monad.State.Trans (get, lift, put)
+import Control.Monad.Error.Class (liftMaybe)
+import Data.String.CodeUnits (toCharArray, stripPrefix)
 import Data.Foldable (traverse_)
 import Data.Monoid (power)
 import Data.Monoid.Additive (Additive (..))
 import Data.Traversable (sequence)
 import Data.String (joinWith)
+import Data.String.Pattern (Pattern (..))
 import Data.Tuple (Tuple (..), uncurry)
 import Data.Int (even)
 import Data.Array (length)
 import Data.Identity (Identity)
+import Split (Parser, split)
 
 -- Note to reader : Add your solutions to this file
 
@@ -72,3 +76,12 @@ collatz n = uncurry format $ runWriter $ collatz' n where
 safeDivide :: Int -> Int -> ExceptT String Identity Int
 safeDivide n n' | n' > 0 = pure $ n / n'
 safeDivide _ _ = throwError "Divide by zero!"
+
+string :: String -> Parser String
+string i = do 
+ s <- get 
+ lift $ tell ["The state is " <> s]
+ s' <- liftMaybe ["Could not parse"] $ stripPrefix (Pattern i) s
+ put s'
+ pure i
+
