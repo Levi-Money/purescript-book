@@ -4,6 +4,7 @@ import Prelude
 import Control.Monad.State (State, execState, modify)
 import Control.Monad.Reader (Reader, ask, local, runReader)
 import Control.Monad.Writer (Writer, tell, runWriter)
+import Control.Monad.Except.Trans (ExceptT, runExceptT, throwError)
 import Data.String.CodeUnits (toCharArray)
 import Data.Foldable (traverse_)
 import Data.Monoid (power)
@@ -13,6 +14,7 @@ import Data.String (joinWith)
 import Data.Tuple (Tuple (..), uncurry)
 import Data.Int (even)
 import Data.Array (length)
+import Data.Identity (Identity)
 
 -- Note to reader : Add your solutions to this file
 
@@ -66,3 +68,7 @@ collatz n = uncurry format $ runWriter $ collatz' n where
       y' <- collatz' y
       pure y'
   collatz' x = tell [x] *> pure x 
+
+safeDivide :: Int -> Int -> ExceptT String Identity Int
+safeDivide n n' | n' > 0 = pure $ n / n'
+safeDivide _ _ = throwError "Divide by zero!"
